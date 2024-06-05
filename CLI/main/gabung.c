@@ -154,6 +154,7 @@ struct Teacher* searchfullname(struct AVLNode *root, char fullname[]) {
 
 // Structure for a student
 struct DataSiswa {
+    char studentID[100];
     char fullname[100];
     int nilaiMat;
     int nilaiFis;
@@ -171,6 +172,9 @@ struct AVLSiswa {
     struct AVLSiswa *right;
 };
 
+void IDgenerator(){
+
+}
 // Function to create a new student node
 struct DataSiswa* createDataSiswa(char fullname[], int nilaiMat, int nilaiFis, int nilaiKim, int nilaiBio, int nilaiBindo, int kelas) {
     struct DataSiswa *newSiswa = (struct DataSiswa*)malloc(sizeof(struct DataSiswa));
@@ -490,53 +494,48 @@ void registerPage(struct AVLNode **root) {
 //     printf("Insert success!\n");
 //     ClearScreen();
 // }
+// Function to print a row of the table
+// void printTableRow(char studentID[],char fullname[], int nilaiMat, int nilaiFis, int nilaiKim, int nilaiBio, int nilaiBindo, int kelas) {
+//     printf("| %-25s | %-25s | %-9d | %-9d | %-9d | %-9d | %-9d | %-9d |\n", studentID, fullname, nilaiMat, nilaiFis, nilaiKim, nilaiBio, nilaiBindo, kelas);
+//     printf("---------------------------------------------------------\n");
+// }
+
+
+
+// In-Order Traversal 
+// void inorderTraversal(struct AVLNode *root) {
+//     if (root != NULL) {
+//         inorderTraversal(root->left);
+//         printTableRow(root->game->title, root->game->genre, root->game->stock);
+//         inorderTraversal(root->right);
+//     }
+   
+// }
+
+// Function to display all games using In-Order traversal
+// void displayGames(struct AVLNode **root) {
+//     if (*root == NULL) {
+//         printf("Warehouse is empty!\n\n");
+//         ClearScreen();
+//         return;// Dibuat oleh Stanley Pratama Teguh dengan NIM: 2702311566
+//     }
+
+//     printf("---------------------------------------------------------\n");
+//     printf("| %-25s | %-12s | %-10s |\n", "Game Title", "Game Genre", "Game Stock");
+//     printf("---------------------------------------------------------\n");
+//     inorderTraversal(*root);
+//     printf("\n");
+// 	ClearScreen();
+// }
 
 
 //----------------------------------------------------------------------------------------------------------------
 //-------------------------------------------MAIN FUNCTION--------------------------------------------------------
 //----------------------------------------------------------------------------------------------------------------
  void mainDatasiswa(){
-//     int choice;
-//     struct AVLSiswa *node = NULL;
-//     do {
-//         printf("Student Data Management\n");
-//         printf("========================\n");
-//         printf("1. Insert Student\n");
-//         printf("2. View Students\n");
-//         printf("3. Update Student\n");
-//         printf("4. Delete Student\n");
-//         printf("5. Exit\n");
-//         printf(">> ");
-
-//         scanf("%d", &choice);
-//         // Clear input buffer
-//         while (getchar() != '\n');
-// 		system("cls");
-
-//         switch (choice) {
-//             case 1:
-//                 insertData(&node);
-//                 break;
-//             case 2:
-//                 displayStudents(&node);
-//                 break;
-//             case 3:
-//                 updateStudent(&node);
-//                 break;
-//             case 4:
-//                 deleteStudent(&node);
-//                 break;
-//             case 5:
-//                 printf("Exiting...\n");
-//                 exit(0);
-//             default:
-//                 printf("Invalid choice! Please enter a number between 1 and 5.\n\n");
-//                 ClearScreen();
-//         }
-//     } while (choice != 5);
     int choice;
-    
     do {
+        struct AVLSiswa *node = NULL;
         system("cls");
         printf(":::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::\n");
         printf("|                    Welcome To Homepage                        |\n");
@@ -567,10 +566,34 @@ void registerPage(struct AVLNode **root) {
         printf("|\n");
         printf(" ===> Choose an Option from the Tools Menu [1-6]: ");
         scanf("%d", &choice);
-        
+        // Clear input buffer
+        while (getchar() != '\n');
+		system("cls");
 
-    } while (choice < 1 || choice > 6);
+        switch (choice) {
+            case 1:
+                //insertData(&node);
+                break;
+            case 2:
+                //displayStudents(&node);
+                break;
+            case 3:
+                //updateStudent(&node);
+                break;
+            case 4:
+                //deleteStudent(&node);
+                break;
+            case 5:
+                //exportData(&node);
+            case 6:
+                printf("Exiting...\n");
+                exit(0);
+            default:
+                printf("Invalid choice! Please enter a number between 1 and 5.\n\n");
+                ClearScreen();
+        }
 
+    } while (choice != 6);
     return;
  }
 
