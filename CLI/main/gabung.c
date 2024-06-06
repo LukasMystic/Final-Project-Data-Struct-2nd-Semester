@@ -149,6 +149,7 @@ struct Teacher* searchfullname(struct AVLNode *root, char fullname[]) {
 }
 
 //===================================================================================
+// AVL TREE 2
 //TREE DATA SISWA
 // Structure for a data siswa
 
@@ -167,7 +168,7 @@ struct DataSiswa {
 // AVL tree node
 struct AVLSiswa {
     struct DataSiswa *data;
-    int height;
+    int height2;
     struct AVLSiswa *left;
     struct AVLSiswa *right;
 };
@@ -193,15 +194,15 @@ int max(int a, int b) {
     return (a > b) ? a : b;
 }
 
-// Function to get the height of a node
-int height(struct AVLSiswa *node) {
+// Function to get the height2 of a node
+int height2(struct AVLSiswa *node) {
     if (node == NULL)
         return 0;
-    return node->height;
+    return node->height2;
 }
 
 // Function to perform a left rotation
-struct AVLSiswa* rotateLeft(struct AVLSiswa *y) {
+struct AVLSiswa* rotateLeft2(struct AVLSiswa *y) {
     struct AVLSiswa *x = y->right;
     struct AVLSiswa *T2 = x->left;
 
@@ -209,21 +210,21 @@ struct AVLSiswa* rotateLeft(struct AVLSiswa *y) {
     y->right = T2;
 
     // Update 
-    y->height = max(height(y->left), height(y->right)) + 1;
-    x->height = max(height(x->left), height(x->right)) + 1;
+    y->height2 = max(height2(y->left), height2(y->right)) + 1;
+    x->height2 = max(height2(x->left), height2(x->right)) + 1;
 
     return x;
 }
 
 // Function to get the balance factor of a node
-int getBalance(struct AVLSiswa *node) {
+int getBalance2(struct AVLSiswa *node) {
     if (node == NULL)
         return 0;
-    return height(node->left) - height(node->right);
+    return height2(node->left) - height2(node->right);
 }
 
 // Function to perform a right rotation
-struct AVLSiswa* rotateRight(struct AVLSiswa *x) {
+struct AVLSiswa* rotateRight2(struct AVLSiswa *x) {
     struct AVLSiswa *y = x->left;
     struct AVLSiswa *T2 = y->right;
 
@@ -231,8 +232,8 @@ struct AVLSiswa* rotateRight(struct AVLSiswa *x) {
     x->left = T2;
 
     // Update 
-    x->height = max(height(x->left), height(x->right)) + 1;
-    y->height = max(height(y->left), height(y->right)) + 1;
+    x->height2 = max(height2(x->left), height2(x->right)) + 1;
+    y->height2 = max(height2(y->left), height2(y->right)) + 1;
 
     return y;
 }
@@ -242,7 +243,7 @@ struct AVLSiswa* insertDataSiswa(struct AVLSiswa *node, struct DataSiswa *data) 
     if (node == NULL) {
         struct AVLSiswa *newNode = (struct AVLSiswa*)malloc(sizeof(struct AVLSiswa));
         newNode->data = data;
-        newNode->height = 1;
+        newNode->height2 = 1;
         newNode->left = NULL;
         newNode->right = NULL;
         return newNode;
@@ -259,42 +260,42 @@ struct AVLSiswa* insertDataSiswa(struct AVLSiswa *node, struct DataSiswa *data) 
         return node;
     }
 
-    // Update height 
-    node->height = 1 + max(height(node->left), height(node->right));
-    int balance = getBalance(node);
+    // Update height2 
+    node->height2 = 1 + max(height2(node->left), height2(node->right));
+    int balance = getBalance2(node);
 
     // LLC
     if (balance > 1 && strcmp(data->fullname, node->left->data->fullname) < 0)
-        return rotateRight(node);
+        return rotateRight2(node);
 
     // RRC
     if (balance < -1 && strcmp(data->fullname, node->right->data->fullname) > 0)
-        return rotateLeft(node);
+        return rotateLeft2(node);
 
     // LRC
     if (balance > 1 && strcmp(data->fullname, node->left->data->fullname) > 0) {
-        node->left = rotateLeft(node->left);
-        return rotateRight(node);
+        node->left = rotateLeft2(node->left);
+        return rotateRight2(node);
     }
 
     // RLC
     if (balance < -1 && strcmp(data->fullname, node->right->data->fullname) < 0) {
-        node->right = rotateRight(node->right);
-        return rotateLeft(node);
+        node->right = rotateRight2(node->right);
+        return rotateLeft2(node);
     }
 
     return node;
 }
 
-// Function to search for a student by fullname
-struct AVLSiswa* search(struct AVLSiswa *root, char *fullname) {
+// Function to search22 for a student by fullname
+struct AVLSiswa* search2(struct AVLSiswa *root, char *fullname) {
     if (root == NULL || strcmp(root->data->fullname, fullname) == 0)
         return root;
 
     if (strcmp(fullname, root->data->fullname) < 0)
-        return search(root->left, fullname);
+        return search2(root->left, fullname);
     else
-        return search(root->right, fullname);
+        return search2(root->right, fullname);
 }
 
 // Function to find the node with the minimum value
@@ -333,33 +334,32 @@ struct AVLSiswa* deleteDataSiswa(struct AVLSiswa *node, char *fullname) {
     }
 
     // Update 
-    node->height = 1 + max(height(node->left), height(node->right));
-    int balance = getBalance(node);
+    node->height2 = 1 + max(height2(node->left), height2(node->right));
+    int balance = getBalance2(node);
 
     // LLC
-    if (balance > 1 && getBalance(node->left) >= 0)
-        return rotateRight(node);
+    if (balance > 1 && getBalance2(node->left) >= 0)
+        return rotateRight2(node);
 
     // LRC
-    if (balance > 1 && getBalance(node->left) < 0) {
-        node->left = rotateLeft(node->left);
-        return rotateRight(node);
+    if (balance > 1 && getBalance2(node->left) < 0) {
+        node->left = rotateLeft2(node->left);
+        return rotateRight2(node);
     }
 
     // RRC
-    if (balance < -1 && getBalance(node->right) <= 0)
-        return rotateLeft(node);
+    if (balance < -1 && getBalance2(node->right) <= 0)
+        return rotateLeft2(node);
 
     // RLC
-    if (balance < -1 && getBalance(node->right) > 0) {
-        node->right = rotateRight(node->right);
-        return rotateLeft(node);
+    if (balance < -1 && getBalance2(node->right) > 0) {
+        node->right = rotateRight2(node->right);
+        return rotateLeft2(node);
     }
 
     return node;
 }
 //root2
-
 
 //----------------------------------------FUNCTION SELAIN AVL TREE----------------------------------------------------------
 
