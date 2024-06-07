@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <ctype.h>
+#include <time.h>
 //===================================================================================
  void mainDatasiswa();
 //TREE LOGIN REGISTER
@@ -89,14 +90,19 @@ struct AVLNode* insertTeacherAVL(struct AVLNode *root, struct Teacher *teacher) 
         return newNode;
     }
 
-    int compare = strcmp(teacher->codeGuru, root->teacher->codeGuru);
+    int compare;
+    if (root->teacher == NULL) {
+        compare = -1; // Assume the teacher's codeGuru is smaller than any non-NULL value
+    } else {
+        compare = strcmp(teacher->codeGuru, root->teacher->codeGuru);
+    }
 
     if (compare < 0)
         root->left = insertTeacherAVL(root->left, teacher);
     else if (compare > 0)
         root->right = insertTeacherAVL(root->right, teacher);
     else {
-        printf("Teacher name must be unique!\n");
+        free(teacher);
         return root;
     }
 
@@ -105,27 +111,28 @@ struct AVLNode* insertTeacherAVL(struct AVLNode *root, struct Teacher *teacher) 
     int balance = getBalance(root);
 
     // LLC
-    if (balance > 1 && strcmp(teacher->codeGuru, root->left->teacher->codeGuru) < 0)
+    if (balance > 1 && (root->left != NULL) && strcmp(teacher->codeGuru, root->left->teacher->codeGuru) < 0)
         return rotateRight(root);
 
     // RRC
-    if (balance < -1 && strcmp(teacher->codeGuru, root->right->teacher->codeGuru) > 0)
+    if (balance < -1 && (root->right != NULL) && strcmp(teacher->codeGuru, root->right->teacher->codeGuru) > 0)
         return rotateLeft(root);
 
     // LRC
-    if (balance > 1 && strcmp(teacher->codeGuru, root->left->teacher->codeGuru) > 0) {
+    if (balance > 1 && (root->left != NULL) && strcmp(teacher->codeGuru, root->left->teacher->codeGuru) > 0) {
         root->left = rotateLeft(root->left);
         return rotateRight(root);
     }
 
     // RLC
-    if (balance < -1 && strcmp(teacher->codeGuru, root->right->teacher->codeGuru) < 0) {
+    if (balance < -1 && (root->right != NULL) && strcmp(teacher->codeGuru, root->right->teacher->codeGuru) < 0) {
         root->right = rotateRight(root->right);
         return rotateLeft(root);
     }
 
     return root;
 }
+
 
 // Function to search for a teacher by name
 struct Teacher* search(struct AVLNode *root, char codeGuru[]) {
@@ -146,6 +153,51 @@ struct Teacher* searchfullname(struct AVLNode *root, char fullname[]) {
         return search(root->left, fullname);
     else
         return search(root->right, fullname);
+}
+
+struct AVLNode* loadTeachersFromFile(struct AVLNode *root, const char *filename) {
+    FILE *file = fopen(filename, "r");
+    if (!file) {
+        printf("Error: Could not open file %s\n", filename);
+        return root;
+    }
+
+    char line[256];
+    while (fgets(line, sizeof(line), file)) {
+        char *fullname = strtok(line, ",");
+        char *codeGuru = strtok(NULL, ",");
+        char *email = strtok(NULL, "\n");
+
+        if (fullname && codeGuru && email) {
+            struct Teacher *newTeacher = createTeacher(codeGuru, fullname, email);
+            root = insertTeacherAVL(root, newTeacher);
+        }
+    }
+
+    fclose(file);
+    return root;
+}
+struct Teacher* searchByEmail(struct AVLNode *root, char email[]) {
+    if (root == NULL) return NULL;
+
+    if (strcmp(root->teacher->email, email) == 0) {
+        return root->teacher;
+    }
+
+    struct Teacher *result = searchByEmail(root->left, email);
+    if (result != NULL) return result;
+
+    return searchByEmail(root->right, email);
+}
+// Function to search for a teacher by codeGuru
+struct Teacher* search3(struct AVLNode *root, char codeGuru[]) {
+    if (root == NULL || strcmp(root->teacher->codeGuru, codeGuru) == 0)
+        return root ? root->teacher : NULL;
+
+    if (strcmp(codeGuru, root->teacher->codeGuru) < 0)
+        return search3(root->left, codeGuru);
+    else
+        return search3(root->right, codeGuru);
 }
 
 //===================================================================================
@@ -359,6 +411,9 @@ struct AVLSiswa* deleteDataSiswa(struct AVLSiswa *node, char *fullname) {
 
     return node;
 }
+
+
+
 //root2
 
 //----------------------------------------FUNCTION SELAIN AVL TREE----------------------------------------------------------
@@ -371,73 +426,224 @@ void ClearScreen() {
     system("cls"); // Clear the screen
 }
 
-// Function to display login page
-void loginPage(struct AVLNode *root) {
-    printf("Login Page\n");
-	printf("===========\n\n");
-    char codeGuru[100];
-    char fullname[100];
-    printf("Enter your Teacher ID: ");
-    scanf("%s", codeGuru);
-    printf("Enter your fullname: ");
-    scanf("%s", fullname);
-    struct Teacher *result = search(root, codeGuru);
-    if (result != NULL && strcmp(result->codeGuru, codeGuru) == 0 && strcmp(result->fullname, fullname) == 0) {
-        printf("Login successful! Welcome, %s.\n", result->fullname);
-        printf("\nGo to Our Homepage System ==>\n");
-        getchar();
-        ClearScreen();
-        mainDatasiswa();
+void appendTeacherToFile(const char *filename, struct Teacher *teacher) {
+    FILE *file = fopen(filename, "a");
+    if (!file) {
+        printf("Error: Could not open file %s\n", filename);
+        return;
+    }
+
+    fprintf(file, "%s,%s,%s\n", teacher->fullname, teacher->codeGuru, teacher->email);
+    fclose(file);
+}
+
+void generateVerificationCode() {
+    FILE *fp;
+    int i, code[10];
+
+    // Seed the random number generator
+    srand(time(NULL));
+
+    // Generate a random 10-digit code
+    for (i = 0; i < 10; i++) {
+        code[i] = rand() % 10;
+    }
+
+    // Open the file in write mode, overwriting it if it already exists
+    fp = fopen("verif.csv", "w");
+    if (fp == NULL) {
+        printf("Unable to open file.\n");
+        return;
+    }
+
+    // Write the code to the file
+    for (i = 0; i < 10; i++) {
+        fprintf(fp, "%d", code[i]);
+    }
+
+    // Close the file
+    fclose(fp);
+
+    printf("Verification code generated and written to verif.csv.\n");
+}
+
+// Function to verify the code entered by the user
+int verifyCode(char *code) {
+    FILE *fp;
+    char storedCode[11];
+    struct AVLNode *root = NULL;
+    root = loadTeachersFromFile(root, "DataGuru.csv");
+
+    // Open the file for reading
+    fp = fopen("verif.csv", "r");
+    if (fp == NULL) {
+        printf("Verification file not found.\n");
+        return 0;
+    }
+
+    // Read the stored code from the file
+    fscanf(fp, "%s", storedCode);
+
+    // Close the file
+    fclose(fp);
+
+    // Compare the entered code with the stored code
+    if (strcmp(code, storedCode) == 0) {
+        return 1;
     } else {
-        printf("Login failed check your ID or fullname!\nPlease try again.\n");
-        printf("Press [1] to back: ");
-        int choice;
-        scanf("%d", &choice);
+        return 0;
+    }
+}
 
-        // Clear input buffer
-        while (getchar() != '\n');
-		system("cls");
+// Function to display login page
+void loginPage() {
+    struct AVLNode *root = NULL;
+    root = loadTeachersFromFile(root, "DataGuru.csv");
 
-        switch (choice) {
-            case 1:
+    while (1) {
+        printf("Login Page\n");
+        printf("===========\n\n");
+        char codeGuru[100];
+        char fullname[100];
+        printf("Enter your Teacher ID: ");
+        scanf("%s", codeGuru);
+        printf("Enter your fullname: ");
+        scanf("%s", fullname);
+
+        struct Teacher *result = search(root, codeGuru);
+        if (result != NULL && strcmp(result->codeGuru, codeGuru) == 0 && strcmp(result->fullname, fullname) == 0) {
+            
+
+            // Generate and display verification code
+            generateVerificationCode();
+            printf("Please enter the verification code: ");
+            char verificationCode[11];
+            scanf("%s", verificationCode);
+
+            // Verify the code
+            if (verifyCode(verificationCode)) {
+			    printf("Verification successful!\n");
+			    printf("Login successful! Welcome, %s.\n", result->fullname);
+			    printf("\nGo to Our Homepage System ==>\n");
+			    getchar(); // Clear remaining input buffer
+			    ClearScreen();
+			    
+			    mainDatasiswa();
+			    return;
+			} else {
+			    printf("Verification failed! Incorrect code.\n");
+			    printf("Press [1] to go back to login page.\n");
+			    int choice;
+			    scanf("%d", &choice);
+			
+			    // Clear input buffer
+			    while (getchar() != '\n');
+			
+			    ClearScreen();
+			    if (choice == 1) {
+			        continue;
+			    }
+			}
+
+        } else {
+            printf("Login failed! Check your ID or fullname. Please try again.\n");
+            printf("Press [1] to go back or [2] to retry: ");
+            int choice;
+            scanf("%d", &choice);
+
+            // Clear input buffer
+            while (getchar() != '\n');
+
+            ClearScreen();
+            if (choice == 1) {
                 return;
-                break;
-            default:
-                printf("Okay continue to login. Please enter again\n");
-                ClearScreen();
-                loginPage(root);
-                break;
+            }
         }
     }
 }
 
-// Function to display register page
+
+// For registration
 void registerPage(struct AVLNode **root) {
+    // Load teachers from file before registration
+    *root = loadTeachersFromFile(*root, "DataGuru.csv");
+
     printf("Register Page\n");
-	printf("==============\n\n");
+    printf("==============\n\n");
+
     char codeGuru[100];
     char fullname[100];
     char email[100];
+
+    // Input email
     printf("Enter your email: ");
     scanf("%s", email);
 
-    printf("Enter your Teacher ID: ");
+	// Validate email format
+	int emailLength = strlen(email);
+	if (emailLength < 6 || strchr(email, '@') == NULL) {
+	    int comIndex = emailLength - 4;
+	    int idIndex = emailLength - 3;
+	    if ((comIndex < 0 || strncmp(&email[comIndex], ".com", 4) != 0) &&
+	        (idIndex < 0 || strncmp(&email[idIndex], ".id", 3) != 0)) {
+	        printf("Invalid email format! Email must contain '@' symbol and end with '.com' or '.id'.\n");
+	        getchar(); // Clear remaining input buffer
+	        ClearScreen();
+	        return;
+	    }
+	}
+
+
+
+
+    // Check if email already exists
+    struct Teacher *emailCheck = searchByEmail(*root, email);
+    if (emailCheck != NULL) {
+        printf("User with this email already exists. Please use another email.\n");
+        getchar(); // Clear remaining input buffer
+        ClearScreen();
+        return;
+    }
+
+    // Input Teacher ID
+    printf("Enter your Teacher ID (10 digits): ");
     scanf("%s", codeGuru);
+    
+    // Validate Teacher ID format
+    int codeGuruLength = strlen(codeGuru);
+    if (codeGuruLength != 10 || !isdigit(codeGuru[0])) {
+        printf("Invalid Teacher ID format! Teacher ID must have exactly 10 digits.\n");
+        getchar(); // Clear remaining input buffer
+        ClearScreen();
+        return;
+    }
+
+    // Check if Teacher ID already exists
     struct Teacher *result = search(*root, codeGuru);
     if (result != NULL) {
-        printf("User with this name already exists. Please choose another name.\n");
+        printf("User with this ID already exists. Please choose another ID.\n");
+        getchar(); // Clear remaining input buffer
         ClearScreen();
-        registerPage(root);
-    } else {
-        printf("Enter your fullname: ");
-        scanf("%s", fullname);
-        struct Teacher *newTeacher = createTeacher(codeGuru, fullname, email);
-        *root = insertTeacherAVL(*root, newTeacher);
-        printf("Registration successful! Please login to continue.\n");
-        ClearScreen();
-        loginPage(*root);
+        return;
     }
+
+    // Input fullname
+    printf("Enter your fullname: ");
+    scanf("%s", fullname);
+
+    // Create new teacher and insert into AVL tree
+    struct Teacher *newTeacher = createTeacher(codeGuru, fullname, email);
+    *root = insertTeacherAVL(*root, newTeacher);
+    // Append new teacher to file
+    appendTeacherToFile("DataGuru.csv", newTeacher);
+
+    printf("Registration successful! Please login to continue.\n");
+    getchar(); // Clear remaining input buffer
+    ClearScreen();
+    loginPage(*root);
 }
+
+
 
 //---------------------------------------------DATA SISWA---------------------------------------------------------------
 
