@@ -10,6 +10,6 @@ After that if you want to compile the .dll and .lib and .so file you need to typ
 REMEBER TO DIRECT THE UCRT FIRST: <br>
 For example: cd /e/Data\ Data/Kuliah/Semester\ 2/Kerjaan\ Matkul/Data\ Structure/Lab/Final\ project <br>
 then check the file using: ls <br>
-.dll:gcc -shared -o gabung.dll gabung.c -O2 -Wall <br> 
-.lib:gcc -shared -o gabung.dll -Wl,--out-implib,gabung.lib gabung.c <br>
+.dll: gcc -shared -o gabung.dll gabung.c -O2 -Wall <br> 
+.lib: gcc -shared -o gabung.dll -Wl,--out-implib,gabung.lib gabung.c <br>
 .so: gcc -shared -o libgabung.so -fPIC gabung.c <br>
