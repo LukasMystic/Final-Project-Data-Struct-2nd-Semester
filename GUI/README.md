@@ -5,7 +5,7 @@ pacman -S mingw-w64-ucrt-x86_64-gcc<br>
 (it should take up to 30 minutes of downloading and installing)<br>
 <br>
 then check the following command<br>
-gcc --version<be><br>
+gcc --version<br><br>
 After that if you want to compile the .dll and .lib and .so file you need to type this in the MSYS2 UCRT:<br>
 REMEBER TO DIRECT THE UCRT FIRST: <br>
 For example: cd /e/Data\ Data/Kuliah/Semester\ 2/Kerjaan\ Matkul/Data\ Structure/Lab/Final\ project <br>
