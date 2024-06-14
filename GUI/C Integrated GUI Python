@@ -3,23 +3,19 @@
 #include <string.h>
 #include <ctype.h>
 #include <time.h>
-#ifdef _WIN64
-#define EXPORT __declspec(dllexport)
-#else
-#define EXPORT
-#endif
+
 //===================================================================================
-__declspec(dllexport) void mainDatasiswa();
+void mainDatasiswa();
 //TREE LOGIN REGISTER
 // Structure for a teacher node
-__declspec(dllexport) struct Teacher {
+struct Teacher {
     char codeGuru[100];
     char fullname[100];
     char email[100];
 };
 
 // AVL tree1 node
-__declspec(dllexport) struct AVLNode {
+struct AVLNode {
     struct Teacher *teacher;
     int height;
     struct AVLNode *left;
@@ -27,7 +23,7 @@ __declspec(dllexport) struct AVLNode {
 };
 
 // Function to create a new teacher node
-__declspec(dllexport) struct Teacher* createTeacher(char codeGuru[], char fullname[], char email[]) {
+struct Teacher* createTeacher(char codeGuru[], char fullname[], char email[]) {
     struct Teacher *newTeacher = (struct Teacher*)malloc(sizeof(struct Teacher));
     strcpy(newTeacher->codeGuru, codeGuru);
     strcpy(newTeacher->fullname, fullname);
@@ -36,19 +32,19 @@ __declspec(dllexport) struct Teacher* createTeacher(char codeGuru[], char fullna
 }
 
 // Function to get the maximum of two integers
-__declspec(dllexport) int max1(int a, int b) {
+int max1(int a, int b) {
     return (a > b) ? a : b;
 }
 
 // Function to get the height of a node
-__declspec(dllexport) int height(struct AVLNode *node) {
+int height(struct AVLNode *node) {
     if (node == NULL)
         return 0;
     return node->height;
 }
 
 // Function to perform a left rotation
-__declspec(dllexport) struct AVLNode* rotateLeft(struct AVLNode *y) {
+struct AVLNode* rotateLeft(struct AVLNode *y) {
     struct AVLNode *x = y->right;
     struct AVLNode *T2 = x->left;
 
@@ -63,7 +59,7 @@ __declspec(dllexport) struct AVLNode* rotateLeft(struct AVLNode *y) {
 }
 
 // Function to perform a right rotation
-__declspec(dllexport) struct AVLNode* rotateRight(struct AVLNode *x) {
+struct AVLNode* rotateRight(struct AVLNode *x) {
     struct AVLNode *y = x->left;
     struct AVLNode *T2 = y->right;
 
@@ -78,14 +74,14 @@ __declspec(dllexport) struct AVLNode* rotateRight(struct AVLNode *x) {
 }
 
 // Function to get the balance factor of a node
-__declspec(dllexport) int getBalance(struct AVLNode *node) {
+int getBalance(struct AVLNode *node) {
     if (node == NULL)
         return 0;
     return height(node->left) - height(node->right);
 }
 
 // Function to insert a teacher into AVL tree
-__declspec(dllexport) struct AVLNode* insertTeacherAVL(struct AVLNode *root, struct Teacher *teacher) {
+struct AVLNode* insertTeacherAVL(struct AVLNode *root, struct Teacher *teacher) {
     if (root == NULL) {
         struct AVLNode *newNode = (struct AVLNode*)malloc(sizeof(struct AVLNode));
         newNode->teacher = teacher;
@@ -140,7 +136,7 @@ __declspec(dllexport) struct AVLNode* insertTeacherAVL(struct AVLNode *root, str
 
 
 // Function to search for a teacher by name
-__declspec(dllexport) struct Teacher* search(struct AVLNode *root, char codeGuru[]) {
+struct Teacher* search(struct AVLNode *root, char codeGuru[]) {
     if (root == NULL || strcmp(root->teacher->codeGuru, codeGuru) == 0)
         return root ? root->teacher : NULL;
 
@@ -150,7 +146,7 @@ __declspec(dllexport) struct Teacher* search(struct AVLNode *root, char codeGuru
         return search(root->right, codeGuru);
 }
 
-__declspec(dllexport) struct Teacher* searchfullname(struct AVLNode *root, char fullname[]) {
+struct Teacher* searchfullname(struct AVLNode *root, char fullname[]) {
     if (root == NULL || strcmp(root->teacher->fullname, fullname) == 0)
         return root ? root->teacher : NULL;
 
@@ -160,7 +156,7 @@ __declspec(dllexport) struct Teacher* searchfullname(struct AVLNode *root, char 
         return search(root->right, fullname);
 }
 
-__declspec(dllexport) struct AVLNode* loadTeachersFromFile(struct AVLNode *root, const char *filename) {
+struct AVLNode* loadTeachersFromFile(struct AVLNode *root, const char *filename) {
     FILE *file = fopen(filename, "r");
     if (!file) {
         printf("Error: Could not open file %s\n", filename);
@@ -182,7 +178,7 @@ __declspec(dllexport) struct AVLNode* loadTeachersFromFile(struct AVLNode *root,
     fclose(file);
     return root;
 }
-__declspec(dllexport) struct Teacher* searchByEmail(struct AVLNode *root, char email[]) {
+struct Teacher* searchByEmail(struct AVLNode *root, char email[]) {
     if (root == NULL) return NULL;
 
     if (strcmp(root->teacher->email, email) == 0) {
@@ -195,7 +191,7 @@ __declspec(dllexport) struct Teacher* searchByEmail(struct AVLNode *root, char e
     return searchByEmail(root->right, email);
 }
 // Function to search for a teacher by codeGuru
-__declspec(dllexport) struct Teacher* search3(struct AVLNode *root, char codeGuru[]) {
+struct Teacher* search3(struct AVLNode *root, char codeGuru[]) {
     if (root == NULL || strcmp(root->teacher->codeGuru, codeGuru) == 0)
         return root ? root->teacher : NULL;
 
@@ -211,7 +207,7 @@ __declspec(dllexport) struct Teacher* search3(struct AVLNode *root, char codeGur
 // Structure for a data siswa
 
 // Structure for a student
-__declspec(dllexport) struct DataSiswa {
+struct DataSiswa {
     char studentID[100];
     char fullname[100];
     int nilaiMat;
@@ -223,7 +219,7 @@ __declspec(dllexport) struct DataSiswa {
 };
 
 // AVL tree node
-__declspec(dllexport) struct AVLSiswa {
+struct AVLSiswa {
     struct DataSiswa *data;
     int height2;
     struct AVLSiswa *left;
@@ -234,7 +230,7 @@ void IDgenerator(){
 
 }
 // Function to create a new student node
-__declspec(dllexport) struct DataSiswa* createDataSiswa(char fullname[], int nilaiMat, int nilaiFis, int nilaiKim, int nilaiBio, int nilaiBindo, int kelas) {
+struct DataSiswa* createDataSiswa(char fullname[], int nilaiMat, int nilaiFis, int nilaiKim, int nilaiBio, int nilaiBindo, int kelas) {
     struct DataSiswa *newSiswa = (struct DataSiswa*)malloc(sizeof(struct DataSiswa));
     strcpy(newSiswa->fullname, fullname);
     newSiswa->nilaiMat = nilaiMat;
@@ -247,19 +243,19 @@ __declspec(dllexport) struct DataSiswa* createDataSiswa(char fullname[], int nil
 }
 
 // Function to get the maximum of two integers
-__declspec(dllexport) int max(int a, int b) {
+int max(int a, int b) {
     return (a > b) ? a : b;
 }
 
 // Function to get the height2 of a node
-__declspec(dllexport) int height2(struct AVLSiswa *node) {
+int height2(struct AVLSiswa *node) {
     if (node == NULL)
         return 0;
     return node->height2;
 }
 
 // Function to perform a left rotation
-__declspec(dllexport) struct AVLSiswa* rotateLeft2(struct AVLSiswa *y) {
+struct AVLSiswa* rotateLeft2(struct AVLSiswa *y) {
     struct AVLSiswa *x = y->right;
     struct AVLSiswa *T2 = x->left;
 
@@ -274,14 +270,14 @@ __declspec(dllexport) struct AVLSiswa* rotateLeft2(struct AVLSiswa *y) {
 }
 
 // Function to get the balance factor of a node
-__declspec(dllexport) int getBalance2(struct AVLSiswa *node) {
+int getBalance2(struct AVLSiswa *node) {
     if (node == NULL)
         return 0;
     return height2(node->left) - height2(node->right);
 }
 
 // Function to perform a right rotation
-__declspec(dllexport) struct AVLSiswa* rotateRight2(struct AVLSiswa *x) {
+struct AVLSiswa* rotateRight2(struct AVLSiswa *x) {
     struct AVLSiswa *y = x->left;
     struct AVLSiswa *T2 = y->right;
 
@@ -296,7 +292,7 @@ __declspec(dllexport) struct AVLSiswa* rotateRight2(struct AVLSiswa *x) {
 }
 
 // Function to insert a student into AVL tree
-__declspec(dllexport) struct AVLSiswa* insertDataSiswa(struct AVLSiswa *node, struct DataSiswa *data) {
+struct AVLSiswa* insertDataSiswa(struct AVLSiswa *node, struct DataSiswa *data) {
     if (node == NULL) {
         struct AVLSiswa *newNode = (struct AVLSiswa*)malloc(sizeof(struct AVLSiswa));
         newNode->data = data;
@@ -345,7 +341,7 @@ __declspec(dllexport) struct AVLSiswa* insertDataSiswa(struct AVLSiswa *node, st
 }
 
 // Function to search22 for a student by fullname
-__declspec(dllexport) struct AVLSiswa* search2(struct AVLSiswa *root, char *fullname) {
+struct AVLSiswa* search2(struct AVLSiswa *root, char *fullname) {
     if (root == NULL || strcmp(root->data->fullname, fullname) == 0)
         return root;
 
@@ -356,7 +352,7 @@ __declspec(dllexport) struct AVLSiswa* search2(struct AVLSiswa *root, char *full
 }
 
 // Function to find the node with the minimum value
-__declspec(dllexport) struct AVLSiswa* minValueNode(struct AVLSiswa *node) {
+struct AVLSiswa* minValueNode(struct AVLSiswa *node) {
     struct AVLSiswa *current = node;
 
     while (current && current->left != NULL)
@@ -366,7 +362,7 @@ __declspec(dllexport) struct AVLSiswa* minValueNode(struct AVLSiswa *node) {
 }
 
 // Function to delete a student node
-__declspec(dllexport) struct AVLSiswa* deleteDataSiswa(struct AVLSiswa *node, char *fullname) {
+struct AVLSiswa* deleteDataSiswa(struct AVLSiswa *node, char *fullname) {
     if (node == NULL)
         return node;
 
@@ -425,13 +421,13 @@ __declspec(dllexport) struct AVLSiswa* deleteDataSiswa(struct AVLSiswa *node, ch
 
 //---------------------------------------------LOGIN/REGISTER---------------------------------------------------------------
 // Function to clear the screen
-__declspec(dllexport) void ClearScreen() {
+void ClearScreen() {
     printf("Press enter to continue...");
     getchar();
     system("cls"); // Clear the screen
 }
 
-__declspec(dllexport) void appendTeacherToFile(const char *filename, struct Teacher *teacher) {
+void appendTeacherToFile(const char *filename, struct Teacher *teacher) {
     FILE *file = fopen(filename, "a");
     if (!file) {
         printf("Error: Could not open file %s\n", filename);
@@ -442,7 +438,7 @@ __declspec(dllexport) void appendTeacherToFile(const char *filename, struct Teac
     fclose(file);
 }
 
-__declspec(dllexport) void generateVerificationCode() {
+void generateVerificationCode() {
     FILE *fp;
     int i, code[10];
 
@@ -473,7 +469,7 @@ __declspec(dllexport) void generateVerificationCode() {
 }
 
 // Function to verify the code entered by the user
-__declspec(dllexport) int verifyCode(char *code) {
+int verifyCode(char *code) {
     FILE *fp;
     char storedCode[11];
     struct AVLNode *root = NULL;
@@ -501,7 +497,7 @@ __declspec(dllexport) int verifyCode(char *code) {
 }
 
 // Function to display login page
-__declspec(dllexport) void loginPage() {
+void loginPage() {
     struct AVLNode *root = NULL;
     root = loadTeachersFromFile(root, "DataGuru.csv");
 
@@ -569,7 +565,7 @@ __declspec(dllexport) void loginPage() {
 
 
 // For registration
-__declspec(dllexport) void registerPage(struct AVLNode **root) {
+void registerPage(struct AVLNode **root) {
     // Load teachers from file before registration
     *root = loadTeachersFromFile(*root, "DataGuru.csv");
 
@@ -743,7 +739,7 @@ struct Teacher *result = search(*root, codeGuru);
 //----------------------------------------------------------------------------------------------------------------
 //-------------------------------------------MAIN FUNCTION--------------------------------------------------------
 //----------------------------------------------------------------------------------------------------------------
-__declspec(dllexport) void mainDatasiswa() {
+void mainDatasiswa() {
     int choice;
     do {
         system("cls");
@@ -808,7 +804,7 @@ __declspec(dllexport) void mainDatasiswa() {
 }
 
 // Main function
-__declspec(dllexport) int main() {
+int main() {
 
     int choice;
     do {
