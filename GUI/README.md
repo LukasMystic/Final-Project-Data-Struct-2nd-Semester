@@ -12,4 +12,4 @@ For example: cd /e/Data\ Data/Kuliah/Semester\ 2/Kerjaan\ Matkul/Data\ Structure
 then check the file using: ls <br>
 .dll: gcc -shared -o gabung.dll gabung.c -O2 -Wall <br> 
 .lib: gcc -shared -o gabung.dll -Wl,--out-implib,gabung.lib gabung.c <br>
-.so: gcc -shared -o libgabung.so -fPIC gabung.c <br>
+.so: gcc -shared -o libgabung.so gabung.c <br>
