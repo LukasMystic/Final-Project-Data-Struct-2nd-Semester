@@ -2264,7 +2264,6 @@ __declspec(dllexport) void mainDatasiswa(){
 __declspec(dllexport) int main() {
     struct AVLNode *root = NULL;
     int choice;
-    mainDatasiswa();
     do {
         printf("Login & Register Page\n");
 	    printf("======================\n");
