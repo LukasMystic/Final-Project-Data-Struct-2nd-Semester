@@ -1,13 +1,15 @@
 import ctypes
 import os
 import csv
-from tkinter import *
-from tkinter import messagebox, filedialog, Text, Toplevel, Button
 import tkinter as tk
-from ctypes import cdll, c_void_p, c_char_p, c_int, POINTER
 import ctypes.util
 import matplotlib.pyplot as plt
 import numpy as np
+from tkinter import *
+from tkinter import messagebox, filedialog, Text, Toplevel, Button, Label, Entry
+from PIL import Image, ImageTk
+from ctypes import cdll, c_void_p, c_char_p, c_int, POINTER
+
 
 # Load the shared library
 if os.name == 'nt':
@@ -299,42 +301,49 @@ def main_datasiswa_window(previous_window, current_user):
     previous_window.withdraw()  # Close the previous window
     global root_siswa
     root_siswa = load_students_from_file()
+    
     main_window = Toplevel()
     main_window.title("Main Data Assessment Menu")
-    main_window.geometry("800x600")
-    main_window.configure(bg="#f0f0f0")
+    main_window.geometry("1000x900")
+    main_window.configure(bg="#102c57")
+    
+    Label(main_window, text=f"Logged in as: {current_user}", font=("Arial", 12), anchor="e", justify="right", fg="#f0f0f0", bg="#102c57").pack(side="top", fill="x")
+   
+    global global_photo
+    image = Image.open("teacher.png")
+    image = image.resize((200, 200), Image.LANCZOS)
+    global_photo = ImageTk.PhotoImage(image)  # Assign to global_photo to prevent garbage collection
 
-    Label(main_window, text="Welcome To Homepage", font=("Arial", 20), bg="#f0f0f0").pack(pady=20)
-    Label(main_window, text="HIGH SCHOOL TEACHER ASSESSMENT SYSTEM", font=("Arial", 16), bg="#f0f0f0").pack()
+    image_label = Label(main_window, image=global_photo, bg="#f0f0f0")
+    image_label.pack(pady=20)
+    
+    Label(main_window, text="Welcome To Homepage", font=("Arial", 20), fg="#f0f0f0", bg="#102c57").pack(pady=20)
+    Label(main_window, text="HIGH SCHOOL TEACHER ASSESSMENT SYSTEM", font=("Arial", 16), fg="#f0f0f0", bg="#102c57").pack(pady=10)
 
-    # Display currently logged-in user
-    Label(main_window, text=f"Logged in as: {current_user}", font=("Arial", 12), anchor="e", justify="right", bg="#f0f0f0").pack(side="top", fill="x")
+    
 
-    # Tools menu options
-    options = [
-        "Insert Student Information and Grades",
-        "Sort, View, and Export Student Grades",
-        "Edit Student Information and Grades",
-        "Delete Student Data",
-        "Export Grades (Unsorted)",
-        "Close the Program"
-    ]
-
-    for i, option in enumerate(options, start=1):
-        Label(main_window, text=f"{i}. {option}", font=("Arial", 12), bg="#f0f0f0").pack()
-
-
+    # Final case lolz
     def close_program():
         # Close the program
         main_window.destroy()
 
-    # Add buttons for each option
-    Button(main_window, text="1. Insert Student Information and Grades", command=lambda: insert_student(current_user)).pack(pady=10)
-    Button(main_window, text="2. Sort, View, Search, and Export Student Grades", command=sort_view_export_students).pack(pady=10)
-    Button(main_window, text="3. Edit Student Information and Grades", command=lambda: update_student_info(root_siswa, current_user)).pack(pady=10)
-    Button(main_window, text="4. Delete Student Data", command=lambda: delete_student(current_user)).pack(pady=10)
-    Button(main_window, text="5. Plot", command=lambda: create_plotting_window(current_user)).pack(pady=10)
-    Button(main_window, text="6. Close the Program", command=close_program).pack(pady=10)
+    # Button styling
+    button_font = ("Arial", 12, 'bold')
+    button_bg = "#4CAF50"
+    button_fg = "white"
+    button_width = 35  # Adjust as needed
+    button_height = 2   # Adjust as needed
+    button_padx = 20    # Adjust padding as needed
+    button_pady = 5    # Adjust padding as needed
+
+    # Add buttons for each option with updated styling
+    Button(main_window, text="1. Insert Student Information and Grades", font=button_font, bg=button_bg, fg=button_fg, width=button_width, height=button_height, padx=button_padx, pady=button_pady, command=lambda: insert_student(current_user)).pack(pady=10)
+    Button(main_window, text="2. Sort, View, Search, and Export Student Grades", font=button_font, bg=button_bg, fg=button_fg, width=button_width, height=button_height, padx=button_padx, pady=button_pady, command=sort_view_export_students).pack(pady=10)
+    Button(main_window, text="3. Edit Student Information and Grades", font=button_font, bg=button_bg, fg=button_fg, width=button_width, height=button_height, padx=button_padx, pady=button_pady, command=lambda: update_student_info(root_siswa, current_user)).pack(pady=10)
+    Button(main_window, text="4. Delete Student Data", font=button_font, bg=button_bg, fg=button_fg, width=button_width, height=button_height, padx=button_padx, pady=button_pady, command=lambda: delete_student(current_user)).pack(pady=10)
+    Button(main_window, text="5. Plot", font=button_font, bg=button_bg, fg=button_fg, width=button_width, height=button_height, padx=button_padx, pady=button_pady, command=lambda: create_plotting_window(current_user)).pack(pady=10)
+    Button(main_window, text="6. Close the Program", font=button_font, bg=button_bg, fg=button_fg, width=button_width, height=button_height, padx=button_padx, pady=button_pady, command=close_program).pack(pady=10)
+
     
 
 ##############################################################################
@@ -1743,20 +1752,35 @@ def show_registration_page(avl_root):
     destroy_all_children(root)
 
     global email_entry, code_entry, fullname_entry
-    Label(root, text="Enter Email:", font=('Arial', 12), bg="#f0f0f0").grid(row=0, column=0, padx=10, pady=10, sticky=E)
-    email_entry = Entry(root, font=('Arial', 12), width=30, bg="#f0f0f0")
-    email_entry.grid(row=0, column=1, padx=10, pady=10)
+    Label(root, text="Enter Email:", font=('Arial', 12, 'bold'), bg="#102c57", fg="#f0f0f0").grid(row=1, column=0, padx=10, pady=10, sticky=tk.E)
+    email_entry = Entry(root, font=('Arial', 12), width=30, bg="#fff")
+    email_entry.grid(row=1, column=1, padx=10, pady=10)
 
-    Label(root, text="Enter Teacher ID (10 digits):", font=('Arial', 12), bg="#f0f0f0").grid(row=1, column=0, padx=10, pady=10, sticky=E)
-    code_entry = Entry(root, font=('Arial', 12), width=30, bg="#f0f0f0")
-    code_entry.grid(row=1, column=1, padx=10, pady=10)
+    Label(root, text="Enter Teacher ID (10 digits):", font=('Arial', 12, 'bold'), bg="#102c57", fg="#f0f0f0").grid(row=2, column=0, padx=10, pady=10, sticky=tk.E)
+    code_entry = Entry(root, font=('Arial', 12), width=30, bg="#fff")
+    code_entry.grid(row=2, column=1, padx=10, pady=10)
 
-    Label(root, text="Enter Fullname:", font=('Arial', 12), bg="#f0f0f0").grid(row=2, column=0, padx=10, pady=10, sticky=E)
-    fullname_entry = Entry(root, font=('Arial', 12), width=30, bg="#f0f0f0")
-    fullname_entry.grid(row=2, column=1, padx=10, pady=10)
+    Label(root, text="Enter Fullname:", font=('Arial', 12, 'bold'), bg="#102c57", fg="#f0f0f0").grid(row=3, column=0, padx=10, pady=10, sticky=tk.E)
+    fullname_entry = Entry(root, font=('Arial', 12), width=30, bg="#fff")
+    fullname_entry.grid(row=3, column=1, padx=10, pady=10)
 
-    Button(root, text="Register", font=('Arial', 12), bg="#4CAF50", fg="white", command=lambda: register_teacher(avl_root)).grid(row=3, column=0, columnspan=2, pady=20)
-    Button(root, text="Back", font=('Arial', 12), bg="#f0f0f0", command=show_main_menu).grid(row=4, column=0, columnspan=2, pady=10)
+    register_button = Button(root, text="Register", font=('Arial', 12), bg="#4CAF50", fg="white", command=lambda: register_teacher(avl_root))
+    register_button.grid(row=4, column=0, columnspan=2, pady=20)
+    register_button.bind("<Enter>", lambda event, button=register_button: on_enter(event, button))
+    register_button.bind("<Leave>", lambda event, button=register_button: on_leave(event, button))
+
+    back_button = Button(root, text="Back", font=('Arial', 12), bg="#f0f0f0", command=show_main_menu)
+    back_button.grid(row=5, column=0, columnspan=2, pady=10)
+    back_button.bind("<Enter>", lambda event, button=back_button: on_enter(event, button))
+    back_button.bind("<Leave>", lambda event, button=back_button: on_leave(event, button))
+
+    root.grid_rowconfigure(0, weight=1)
+    root.grid_rowconfigure(6, weight=1)
+    root.grid_columnconfigure(0, weight=1)
+    root.grid_columnconfigure(1, weight=1)
+
+    logo_label = Label(root, image=logo_tk, bg="#f0f0f0")
+    logo_label.grid(row=0, column=0, columnspan=2, pady=10)
 
 def verify_code():
     code = verification_code_entry.get().encode('utf-8')
@@ -1781,7 +1805,8 @@ def login_teacher(avl_root):
 
         destroy_all_children(root)
         global verification_code_entry
-        Label(root, text="Enter Verification Code:", font=('Arial', 12), bg="#f0f0f0").grid(row=0, column=0, padx=10, pady=10, sticky=E)
+        messagebox.showinfo("Success", "Verification code has been written in verif.csv")
+        Label(root, text="Enter Verification Code:", font=('Arial', 12, 'bold'), bg="#102c57", fg="#f0f0f0").grid(row=0, column=0, padx=10, pady=10, sticky=E)
         verification_code_entry = Entry(root, font=('Arial', 12), width=30, bg="#f0f0f0")
         verification_code_entry.grid(row=0, column=1, padx=10, pady=10)
 
@@ -1797,25 +1822,91 @@ def verify_code_and_login():
     else:
         messagebox.showerror("Error", "Verification failed! Incorrect code.")
 
+def animate_hover_in(button, color="#45a049", steps=10):
+    def step_in(current_step):
+        if current_step < steps:
+            current_color = blend_colors(button.cget("bg"), color, current_step / steps)
+            button.config(bg=current_color)
+            button.after(10, step_in, current_step + 1)
+    step_in(0)
+
+def animate_hover_out(button, original_color, steps=10):
+    def step_out(current_step):
+        if current_step < steps:
+            current_color = blend_colors(button.cget("bg"), original_color, current_step / steps)
+            button.config(bg=current_color)
+            button.after(10, step_out, current_step + 1)
+    step_out(0)
+
+def blend_colors(color1, color2, t):
+    r1, g1, b1 = root.winfo_rgb(color1)
+    r2, g2, b2 = root.winfo_rgb(color2)
+    r = int(r1 + (r2 - r1) * t) // 256
+    g = int(g1 + (g2 - g1) * t) // 256
+    b = int(b1 + (b2 - b1) * t) // 256
+    return f"#{r:02x}{g:02x}{b:02x}"
+
+def on_enter(event, button):
+    animate_hover_in(button)
+
+def on_leave(event, button):
+    original_color = button.original_bg
+    animate_hover_out(button, original_color)
+
 def show_login_page(avl_root):
     destroy_all_children(root)
 
     global login_username_entry, login_code_entry
-    Label(root, text="Enter Username:", font=('Arial', 12), bg="#f0f0f0").grid(row=0, column=0, padx=10, pady=10, sticky=E)
-    login_username_entry = Entry(root, font=('Arial', 12), width=30, bg="#f0f0f0")
-    login_username_entry.grid(row=0, column=1, padx=10, pady=10)
+    Label(root, text="Enter Username:", font=('Arial', 12, 'bold'), bg="#102c57", fg="#f0f0f0").grid(row=1, column=0, padx=10, pady=10, sticky=tk.E)
+    login_username_entry = Entry(root, font=('Arial', 12), width=30, bg="#fff")
+    login_username_entry.grid(row=1, column=1, padx=10, pady=10)
 
-    Label(root, text="Enter Teacher ID:", font=('Arial', 12), bg="#f0f0f0").grid(row=1, column=0, padx=10, pady=10, sticky=E)
-    login_code_entry = Entry(root, font=('Arial', 12), width=30, bg="#f0f0f0")
-    login_code_entry.grid(row=1, column=1, padx=10, pady=10)
+    Label(root, text="Enter Teacher ID:", font=('Arial', 12, 'bold'), bg="#102c57", fg="#f0f0f0").grid(row=2, column=0, padx=10, pady=10, sticky=tk.E)
+    login_code_entry = Entry(root, font=('Arial', 12), width=30, bg="#fff")
+    login_code_entry.grid(row=2, column=1, padx=10, pady=10)
 
-    Button(root, text="Login", font=('Arial', 12), bg="#4CAF50", fg="white", command=lambda: login_teacher(avl_root)).grid(row=2, column=0, columnspan=2, pady=20)
-    Button(root, text="Back", font=('Arial', 12), bg="#f0f0f0", command=show_main_menu).grid(row=3, column=0, columnspan=2, pady=10)
-    
+    login_button = Button(root, text="Login", font=('Arial', 12), bg="#4CAF50", fg="white", command=lambda: login_teacher(avl_root))
+    login_button.grid(row=3, column=0, columnspan=2, pady=20)
+    login_button.original_bg = login_button.cget("bg")
+    login_button.bind("<Enter>", lambda event, button=login_button: on_enter(event, button))
+    login_button.bind("<Leave>", lambda event, button=login_button: on_leave(event, button))
+
+    back_button = Button(root, text="Back", font=('Arial', 12), bg="#f0f0f0", command=show_main_menu)
+    back_button.grid(row=4, column=0, columnspan=2, pady=10)
+    back_button.original_bg = back_button.cget("bg")
+    back_button.bind("<Enter>", lambda event, button=back_button: on_enter(event, button))
+    back_button.bind("<Leave>", lambda event, button=back_button: on_leave(event, button))
+
+    root.grid_rowconfigure(0, weight=1)
+    root.grid_rowconfigure(5, weight=1)
+    root.grid_columnconfigure(0, weight=1)
+    root.grid_columnconfigure(1, weight=1)
+
+    logo_label = Label(root, image=logo_tk, bg="#f0f0f0")
+    logo_label.grid(row=0, column=0, columnspan=2, pady=10)
+
 def show_main_menu():
     destroy_all_children(root)
-    Button(root, text="Register Teacher", font=('Arial', 14), bg="#4CAF50", fg="white", command=lambda: show_registration_page(root_node)).pack(pady=20)
-    Button(root, text="Login", font=('Arial', 14), bg="#4CAF50", fg="white", command=lambda: show_login_page(root_node)).pack(pady=20)
+
+    # Place the logo at the top
+    logo_label = Label(root, image=logo_tk, bg="#f0f0f0")
+    logo_label.pack(pady=10)
+
+    # Create and place the register button
+    register_button = Button(root, text="Register Teacher", font=('Arial', 14), bg="#4CAF50", fg="white", command=lambda: show_registration_page(root_node))
+    register_button.pack(pady=20)
+    register_button.original_bg = register_button.cget("bg")
+    register_button.bind("<Enter>", lambda event, button=register_button: on_enter(event, button))
+    register_button.bind("<Leave>", lambda event, button=register_button: on_leave(event, button))
+
+    # Create and place the login button
+    login_button = Button(root, text="Login", font=('Arial', 14), bg="#4CAF50", fg="white", command=lambda: show_login_page(root_node))
+    login_button.pack(pady=20)
+    login_button.original_bg = login_button.cget("bg")
+    login_button.bind("<Enter>", lambda event, button=login_button: on_enter(event, button))
+    login_button.bind("<Leave>", lambda event, button=login_button: on_leave(event, button))
+
+    root.pack_propagate(False)
 
 root_node = gabung.loadTeachersFromFile(root_node, b"DataGuru.csv")
 
@@ -1823,8 +1914,13 @@ root_node = gabung.loadTeachersFromFile(root_node, b"DataGuru.csv")
 
 root = Tk()
 root.title("Teacher Management System")
-root.geometry("600x400")
+root.geometry("600x600")
 root.configure(bg="#102c57")
+
+# Load and resize the logo image
+image = Image.open("teacher.png")
+image = image.resize((200, 200), Image.LANCZOS)
+logo_tk = ImageTk.PhotoImage(image)
 
 show_main_menu()
 
