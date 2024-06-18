@@ -365,14 +365,14 @@ def insert_student(current_user):
     # Create the insert student data window
     insert_window = tk.Tk()
     insert_window.title("Insert Student Data")
-    insert_window.geometry("800x600")
-    insert_window.configure(bg="#f0f0f0")
+    insert_window.geometry("800x800")
+    insert_window.configure(bg="#102c57")
 
     def create_label_and_entry(window, text, width=50):
-        label = tk.Label(window, text=text, bg="#f0f0f0")
+        label = tk.Label(window, text=text, font=("Arial", 12), bg="#102c57", fg="#f0f0f0", pady=10)
         label.pack()
-        entry = tk.Entry(window, width=width)
-        entry.pack()
+        entry = tk.Entry(window, width=width, font=("Arial", 12), bg="#f0f0f0")
+        entry.pack(pady=3) 
         return entry
 
     fullname_entry = create_label_and_entry(insert_window, "Fullname")
@@ -429,7 +429,7 @@ def insert_student(current_user):
         # Show success message and navigate back
         messagebox.showinfo("Success", "Student data successfully added!")
         insert_window.destroy()
-        main_datasiswa_window(insert_window, current_user)
+        main_datasiswa_window(current_user)
 
     def validate_input(fullname, kelas, nilaiMat, nilaiFis, nilaiKim, nilaiBio, nilaiBindo):
         if not fullname or not kelas or not nilaiMat or not nilaiFis or not nilaiKim or not nilaiBio or not nilaiBindo:
@@ -440,7 +440,7 @@ def insert_student(current_user):
             messagebox.showerror("Error", "Fullname must be between 2 and 90 characters")
             return False
         
-         # Validate fullname using isValidName
+        # Validate fullname using isValidName
         fullname_bytes = fullname.encode()
         if not gabung.isValidName(fullname_bytes):
             messagebox.showerror("Error", "Invalid fullname format")
@@ -467,18 +467,19 @@ def insert_student(current_user):
 
         return True
     
-    submit_button = tk.Button(insert_window, text="Submit", command=get_student_data)
-    submit_button.pack()
+    submit_button = tk.Button(insert_window, text="Submit", font=("Arial", 12, 'bold'), bg="#4CAF50", fg="white", width=20, height=2, padx=10, command=get_student_data)
+    submit_button.pack(pady=10)
 
     def go_back():
         insert_window.destroy()
-        main_datasiswa_window(insert_window, current_user)
+        main_datasiswa_window(current_user)
 
-    back_button = tk.Button(insert_window, text="Back", command=go_back)
-    back_button.pack()
+    back_button = tk.Button(insert_window, text="Back", font=("Arial", 12, 'bold'), bg="#f0f0f0", fg="#102c57", width=20, height=2, padx=10, command=go_back)
+    back_button.pack(pady=10)  # Increased padding around back_button
 
     insert_window.mainloop()
-    
+
+
 ##############################################################################
 
 # Case 2 (Menu)
@@ -1810,7 +1811,7 @@ def login_teacher(avl_root):
         verification_code_entry = Entry(root, font=('Arial', 12), width=30, bg="#f0f0f0")
         verification_code_entry.grid(row=0, column=1, padx=10, pady=10)
 
-        Button(root, text="Verify", font=('Arial', 12), bg="#4CAF50", fg="white", command=lambda: verify_code_and_login()).grid(row=1, column=0, columnspan=2, pady=20)
+        Button(root, text="Verify", font=('Arial', 12, 'bold'), bg="#4CAF50", fg="white", command=lambda: verify_code_and_login()).grid(row=1, column=0, columnspan=2, pady=20)
     else:
         messagebox.showerror("Error", "Invalid username or Teacher ID. Please try again.")
         
@@ -1865,13 +1866,13 @@ def show_login_page(avl_root):
     login_code_entry = Entry(root, font=('Arial', 12), width=30, bg="#fff")
     login_code_entry.grid(row=2, column=1, padx=10, pady=10)
 
-    login_button = Button(root, text="Login", font=('Arial', 12), bg="#4CAF50", fg="white", command=lambda: login_teacher(avl_root))
+    login_button = Button(root, text="Login", font=('Arial', 12, 'bold'), bg="#4CAF50", fg="white", command=lambda: login_teacher(avl_root))
     login_button.grid(row=3, column=0, columnspan=2, pady=20)
     login_button.original_bg = login_button.cget("bg")
     login_button.bind("<Enter>", lambda event, button=login_button: on_enter(event, button))
     login_button.bind("<Leave>", lambda event, button=login_button: on_leave(event, button))
 
-    back_button = Button(root, text="Back", font=('Arial', 12), bg="#f0f0f0", command=show_main_menu)
+    back_button = Button(root, text="Back", font=('Arial', 12, 'bold'), bg="#f0f0f0", command=show_main_menu)
     back_button.grid(row=4, column=0, columnspan=2, pady=10)
     back_button.original_bg = back_button.cget("bg")
     back_button.bind("<Enter>", lambda event, button=back_button: on_enter(event, button))
@@ -1893,14 +1894,14 @@ def show_main_menu():
     logo_label.pack(pady=10)
 
     # Create and place the register button
-    register_button = Button(root, text="Register Teacher", font=('Arial', 14), bg="#4CAF50", fg="white", command=lambda: show_registration_page(root_node))
+    register_button = Button(root, text="Register Teacher", font=('Arial', 14,'bold'), bg="#4CAF50", fg="white", command=lambda: show_registration_page(root_node))
     register_button.pack(pady=20)
     register_button.original_bg = register_button.cget("bg")
     register_button.bind("<Enter>", lambda event, button=register_button: on_enter(event, button))
     register_button.bind("<Leave>", lambda event, button=register_button: on_leave(event, button))
 
     # Create and place the login button
-    login_button = Button(root, text="Login", font=('Arial', 14), bg="#4CAF50", fg="white", command=lambda: show_login_page(root_node))
+    login_button = Button(root, text="Login", font=('Arial', 14, 'bold'), bg="#4CAF50", fg="white", command=lambda: show_login_page(root_node))
     login_button.pack(pady=20)
     login_button.original_bg = login_button.cget("bg")
     login_button.bind("<Enter>", lambda event, button=login_button: on_enter(event, button))
