@@ -13,7 +13,8 @@ gcc --version<br><br><br>
 After that to compile the .dll and .lib and .so file you need to type this in the MSYS2 UCRT:<br>
 REMEBER TO DIRECT THE UCRT FIRST: <br>
 For example: cd /e/Data\ Data/Kuliah/Semester\ 2/Kerjaan\ Matkul/Data\ Structure/Lab/Final\ project <br>
-then check the file using: ls <br>
+then check the file using: ls <br><br>
+If the directory is correct do the following command to install the dll, lib, and so files:<br>
 .dll: gcc -shared -o gabung.dll gabung.c -O2 -Wall <br> 
 .lib: gcc -shared -o gabung.dll -Wl,--out-implib,gabung.lib gabung.c <br>
 .so: gcc -shared -o libgabung.so gabung.c <br>
