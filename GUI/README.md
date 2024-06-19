@@ -48,7 +48,7 @@ Link Canva(GitHub, Canva Public View, Semua Video, Jobdesk, dll): https://www.ca
 
 Link Github: https://github.com/LukasMystic/Final-Project-Data-Struct-2nd-Semester/tree/main
 
-<br><br><br>
+<br><br>
 Link Tutorial: https://binusianorg-my.sharepoint.com/personal/mochammad_pasha_binus_ac_id/_layouts/15/guestaccess.aspx?share=EWRtZ7dQEwNBjeyXyLCtE-EBv-5AHKpJ7PFhMGt1P-AVig&nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJPbmVEcml2ZUZvckJ1c2luZXNzIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXciLCJyZWZlcnJhbFZpZXciOiJNeUZpbGVzTGlua0NvcHkifX0&e=FqDhSp
 
 
