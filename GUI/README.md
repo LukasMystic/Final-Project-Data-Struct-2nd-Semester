@@ -36,9 +36,9 @@ Libraries that we used for GUI:<br><br>
 4. Pillow ==> installation guide: https://pypi.org/project/pillow/ ==> pip install pillow<br><br>
 <br>
 -----------------------------------------------------------------------
-<br>
+<br><br>
 If you want to run the exe GUI file:
 
-<br><br>
+<br>
 Link exe files (GUI) (You must download all the folder in order to run the gui exe program: https://binusianorg-my.sharepoint.com/personal/mochammad_pasha_binus_ac_id/_layouts/15/guestaccess.aspx?share=Eh7HuUtXwsZAgPs3w72EUcQBpi8UUJjzYErath0hvdswnQ&e=t45H0r 
 
