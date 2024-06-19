@@ -21,7 +21,7 @@ then check the file using: ls <br>
 
 -----------------------------------------------------------------------
 
-<br><br>
+<br>
 Python version: 3.12.4 ==> install it here: https://www.python.org/downloads/release/python-3124/<br>
 <br>
 Libraries that we used for GUI:<br><br>
