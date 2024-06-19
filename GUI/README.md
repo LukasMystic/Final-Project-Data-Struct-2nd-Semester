@@ -1,6 +1,6 @@
 
 If dll or any of the files cannot be downloaded: <br>
-<br>
+
 1. First you must use MSYS2 to compile the C code <br>
 You can download it here: https://www.msys2.org/ <br>
 <br>
