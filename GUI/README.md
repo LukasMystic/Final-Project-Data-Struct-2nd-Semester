@@ -1,16 +1,16 @@
 
 If dll or any of the files cannot be downloaded: <br>
 
-1. First you must use MSYS2 to compile the C code <br>
+First you must use MSYS2 to compile the C code <br>
 You can download it here: https://www.msys2.org/ <br>
 <br>
-2. You must install MinGW64 on UCRT64 by following the command:<br>
+You must install MinGW64 on UCRT64 by following the command:<br>
 pacman -S mingw-w64-ucrt-x86_64-gcc<br>
 (it should take up to 30 minutes of downloading and installing)<br>
 <br>
-3. then check the following command<br>
+then check the following command<br>
 gcc --version<br><br><br>
-4. After that to compile the .dll and .lib and .so file you need to type this in the MSYS2 UCRT:<br>
+After that to compile the .dll and .lib and .so file you need to type this in the MSYS2 UCRT:<br>
 REMEBER TO DIRECT THE UCRT FIRST: <br>
 For example: cd /e/Data\ Data/Kuliah/Semester\ 2/Kerjaan\ Matkul/Data\ Structure/Lab/Final\ project <br>
 then check the file using: ls <br>
