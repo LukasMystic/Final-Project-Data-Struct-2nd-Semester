@@ -9,7 +9,6 @@ Jobdesc:<br>
 •	Stanley: Making the AVL Tree (Insert Node, Create Node, Delete Node), Making Dummy data guru, Searching, Login, registration, verification, Adjusting the indent for dll (dynamic link library), Integrating C in python, Making all GUI (Homepage view, Login, registration, verification, CRUD, Sort, Export)<br>
 •	Halim: All Sorting, and Exports in CLI
 <br>
-
 -----------------------------------------------------------------------
 <br>
 You can find all the link for the backup files here: <br>
