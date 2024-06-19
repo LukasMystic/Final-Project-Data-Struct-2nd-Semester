@@ -311,14 +311,14 @@ def main_datasiswa_window(previous_window, current_user):
    
     global global_photo
     image = Image.open("teacher.png")
-    image = image.resize((200, 200), Image.LANCZOS)
+    image = image.resize((100, 100), Image.LANCZOS)
     global_photo = ImageTk.PhotoImage(image)  # Assign to global_photo to prevent garbage collection
 
     image_label = Label(main_window, image=global_photo, bg="#f0f0f0")
     image_label.pack(pady=20)
     
-    Label(main_window, text="Welcome To Homepage", font=("Arial", 20), fg="#f0f0f0", bg="#102c57").pack(pady=20)
-    Label(main_window, text="HIGH SCHOOL TEACHER ASSESSMENT SYSTEM", font=("Arial", 16), fg="#f0f0f0", bg="#102c57").pack(pady=10)
+    Label(main_window, text="Welcome To Homepage", font=("Arial", 16), fg="#f0f0f0", bg="#102c57").pack(pady=20)
+    Label(main_window, text="HIGH SCHOOL TEACHER ASSESSMENT SYSTEM", font=("Arial", 12), fg="#f0f0f0", bg="#102c57").pack(pady=10)
 
     
 
@@ -328,21 +328,21 @@ def main_datasiswa_window(previous_window, current_user):
         main_window.destroy()
 
     # Button styling
-    button_font = ("Arial", 12, 'bold')
+    button_font = ("Arial", 8, 'bold')
     button_bg = "#4CAF50"
     button_fg = "white"
     button_width = 35  # Adjust as needed
-    button_height = 2   # Adjust as needed
-    button_padx = 20    # Adjust padding as needed
+    button_height = 1   # Adjust as needed
+    button_padx = 30    # Adjust padding as needed
     button_pady = 5    # Adjust padding as needed
 
     # Add buttons for each option with updated styling
-    Button(main_window, text="1. Insert Student Information and Grades", font=button_font, bg=button_bg, fg=button_fg, width=button_width, height=button_height, padx=button_padx, pady=button_pady, command=lambda: insert_student(current_user)).pack(pady=10)
-    Button(main_window, text="2. Sort, View, Search, and Export Student Grades", font=button_font, bg=button_bg, fg=button_fg, width=button_width, height=button_height, padx=button_padx, pady=button_pady, command=sort_view_export_students).pack(pady=10)
-    Button(main_window, text="3. Edit Student Information and Grades", font=button_font, bg=button_bg, fg=button_fg, width=button_width, height=button_height, padx=button_padx, pady=button_pady, command=lambda: update_student_info(root_siswa, current_user)).pack(pady=10)
-    Button(main_window, text="4. Delete Student Data", font=button_font, bg=button_bg, fg=button_fg, width=button_width, height=button_height, padx=button_padx, pady=button_pady, command=lambda: delete_student(current_user)).pack(pady=10)
-    Button(main_window, text="5. Plot", font=button_font, bg=button_bg, fg=button_fg, width=button_width, height=button_height, padx=button_padx, pady=button_pady, command=lambda: create_plotting_window(current_user)).pack(pady=10)
-    Button(main_window, text="6. Close the Program", font=button_font, bg=button_bg, fg=button_fg, width=button_width, height=button_height, padx=button_padx, pady=button_pady, command=close_program).pack(pady=10)
+    Button(main_window, text="1. Insert Student Information and Grades", font=button_font, bg=button_bg, fg=button_fg, width=button_width, height=button_height, padx=button_padx, pady=button_pady, command=lambda: insert_student(current_user)).pack(pady=5)
+    Button(main_window, text="2. Sort, View, Search, and Export Student Grades", font=button_font, bg=button_bg, fg=button_fg, width=button_width, height=button_height, padx=button_padx, pady=button_pady, command=sort_view_export_students).pack(pady=5)
+    Button(main_window, text="3. Edit Student Information and Grades", font=button_font, bg=button_bg, fg=button_fg, width=button_width, height=button_height, padx=button_padx, pady=button_pady, command=lambda: update_student_info(root_siswa, current_user)).pack(pady=5)
+    Button(main_window, text="4. Delete Student Data", font=button_font, bg=button_bg, fg=button_fg, width=button_width, height=button_height, padx=button_padx, pady=button_pady, command=lambda: delete_student(current_user)).pack(pady=5)
+    Button(main_window, text="5. Plot", font=button_font, bg=button_bg, fg=button_fg, width=button_width, height=button_height, padx=button_padx, pady=button_pady, command=lambda: create_plotting_window(current_user)).pack(pady=5)
+    Button(main_window, text="6. Close the Program", font=button_font, bg="#f44336", fg=button_fg, width=button_width, height=button_height, padx=button_padx, pady=button_pady, command=close_program).pack(pady=5)
 
     
 
@@ -467,14 +467,14 @@ def insert_student(current_user):
 
         return True
     
-    submit_button = tk.Button(insert_window, text="Submit", font=("Arial", 12, 'bold'), bg="#4CAF50", fg="white", width=20, height=2, padx=10, command=get_student_data)
+    submit_button = tk.Button(insert_window, text="Submit", font=("Arial", 10, 'bold'), bg="#4CAF50", fg="white", width=20, height=2, padx=10, command=get_student_data)
     submit_button.pack(pady=10)
 
     def go_back():
         insert_window.destroy()
         main_datasiswa_window(current_user)
 
-    back_button = tk.Button(insert_window, text="Back", font=("Arial", 12, 'bold'), bg="#f0f0f0", fg="#102c57", width=20, height=2, padx=10, command=go_back)
+    back_button = tk.Button(insert_window, text="Back", font=("Arial", 10, 'bold'), bg="#f44336", fg="#f0f0f0", width=20, height=2, padx=10, command=go_back)
     back_button.pack(pady=10)  # Increased padding around back_button
 
     insert_window.mainloop()
@@ -485,29 +485,43 @@ def insert_student(current_user):
 # Case 2 (Menu)
 def sort_view_export_students():
     global root_siswa
-
     global sort_export_window
 
     # Create the main window
     sort_export_window = Toplevel()
     sort_export_window.title("Sort, View, and Export Student Grades")
     sort_export_window.geometry("800x600")
-    # Define a function to handle window close event
+    sort_export_window.configure(bg="#102c57")  # Background color
+
+    # Function to handle window close event
     def on_close():
         close_sort_export_window()
 
     # Set the window close event to call the on_close function
     sort_export_window.protocol("WM_DELETE_WINDOW", on_close)
 
+    # Button styling
+    button_font = ("Arial", 10, 'bold')
+    button_bg = "#4CAF50"
+    button_fg = "white"
+    button_width = 25  # Adjust as needed
+    button_height = 1   # Adjust as needed
+    button_padx = 10    # Adjust padding as needed
+    button_pady = 5    # Adjust padding as needed
+
     # Add buttons for each sorting and exporting option
-    Button(sort_export_window, text="Sort by Name", command=sort_by_name).pack() # Case 1
-    Button(sort_export_window, text="Sort by Score", command=sort_by_score).pack() # Case 2
-    Button(sort_export_window, text="Sort by Ranking", command=sort_by_ranking).pack() # Case 3
-    Button(sort_export_window, text="Sort by Class", command=sort_by_class).pack() # Case 4
-    Button(sort_export_window, text="View All Students", command=display_unsorted_students).pack() # Case 5
-    Button(sort_export_window, text="Search Students", command=lambda: searching_siswa(root_siswa, sort_export_window)).pack() # Case 6
-    Button(sort_export_window, text="Export Grades (Unsorted)", command=lambda: export(b"Unsorted_", "Unsorted File")).pack() # Case 7
-    Button(sort_export_window, text="Back", command=close_sort_export_window).pack()
+    Button(sort_export_window, text="Sort by Name", font=button_font, bg=button_bg, fg=button_fg, width=button_width, height=button_height, padx=button_padx, pady=button_pady, command=sort_by_name).pack(pady=10)
+    Button(sort_export_window, text="Sort by Score", font=button_font, bg=button_bg, fg=button_fg, width=button_width, height=button_height, padx=button_padx, pady=button_pady, command=sort_by_score).pack(pady=10)
+    Button(sort_export_window, text="Sort by Ranking", font=button_font, bg=button_bg, fg=button_fg, width=button_width, height=button_height, padx=button_padx, pady=button_pady, command=sort_by_ranking).pack(pady=10)
+    Button(sort_export_window, text="Sort by Class", font=button_font, bg=button_bg, fg=button_fg, width=button_width, height=button_height, padx=button_padx, pady=button_pady, command=sort_by_class).pack(pady=10)
+    Button(sort_export_window, text="View All Students", font=button_font, bg=button_bg, fg=button_fg, width=button_width, height=button_height, padx=button_padx, pady=button_pady, command=display_unsorted_students).pack(pady=10)
+    Button(sort_export_window, text="Search Students", font=button_font, bg=button_bg, fg=button_fg, width=button_width, height=button_height, padx=button_padx, pady=button_pady, command=lambda: searching_siswa(root_siswa, sort_export_window)).pack(pady=10)
+    Button(sort_export_window, text="Export Grades (Unsorted)", font=button_font, bg=button_bg, fg=button_fg, width=button_width, height=button_height, padx=button_padx, pady=button_pady, command=lambda: export(b"Unsorted_", "Unsorted File")).pack(pady=10)
+    Button(sort_export_window, text="Back", font=button_font, bg="#f44336", fg=button_fg, width=button_width, height=button_height, padx=button_padx, pady=button_pady, command=close_sort_export_window).pack(pady=10)
+
+    sort_export_window.mainloop()
+
+
 
 
     
@@ -518,16 +532,26 @@ def sort_by_name():
     sort_window = Toplevel()
     sort_window.title("Sorting Options")
     sort_window.geometry("800x600")
+    sort_window.configure(bg="#102c57")  # Background color
 
     # Create a label and radio buttons for sorting options
-    label = Label(sort_window, text="Sort by name:")
+    label = Label(sort_window, text="Sort by name:", font=("Arial", 12, 'bold'), fg="#f0f0f0", bg="#102c57")
     label.pack(pady=10)
 
     sorting_options = IntVar()
-    ascending_radio = Radiobutton(sort_window, text="Ascending", variable=sorting_options, value=1)
+    ascending_radio = Radiobutton(sort_window, text="Ascending", variable=sorting_options, value=1, font=("Arial", 12), bg="#102c57", fg="#f0f0f0", selectcolor="#4CAF50")
     ascending_radio.pack()
-    descending_radio = Radiobutton(sort_window, text="Descending", variable=sorting_options, value=2)
+    descending_radio = Radiobutton(sort_window, text="Descending", variable=sorting_options, value=2, font=("Arial", 12), bg="#102c57", fg="#f0f0f0", selectcolor="#4CAF50")
     descending_radio.pack()
+
+    # Button styling
+    button_font = ("Arial", 10, 'bold')
+    button_bg = "#4CAF50"
+    button_fg = "white"
+    button_width = 20  # Adjust as needed
+    button_height = 2   # Adjust as needed
+    button_padx = 10    # Adjust padding as needed
+    button_pady = 5    # Adjust padding as needed
 
     # Create a button to proceed with sorting
     def proceed_with_sorting():
@@ -559,7 +583,7 @@ def sort_by_name():
         # Close the sorting options window
         sort_window.destroy()
 
-    proceed_button = Button(sort_window, text="Proceed", command=proceed_with_sorting)
+    proceed_button = Button(sort_window, text="Proceed", font=button_font, bg=button_bg, fg=button_fg, width=button_width, height=button_height, padx=button_padx, pady=button_pady, command=proceed_with_sorting)
     proceed_button.pack(pady=10)
 
     # Create a back button to reopen the sort_export_window
@@ -567,8 +591,11 @@ def sort_by_name():
         sort_window.destroy()
         sort_view_export_students()
 
-    back_button = Button(sort_window, text="Back", command=back_to_sort_export)
+    back_button = Button(sort_window, text="Back", font=button_font, bg="#f44336", fg=button_fg, width=button_width, height=button_height, padx=button_padx, pady=button_pady, command=back_to_sort_export)
     back_button.pack(pady=10)
+
+    sort_window.mainloop()
+
     
     
 # Case 2 (Case 2)
@@ -577,23 +604,41 @@ def sort_by_score():
     window = Toplevel()
     window.title("Sort by Score")
     window.geometry("800x600")  
-    label = tk.Label(window, text="Sort by Score")
-    label.pack()
-    button_frame = tk.Frame(window)
+    window.configure(bg="#102c57")  # Background color
+
+    label = Label(window, text="Sort by Score", font=("Arial", 20), fg="#f0f0f0", bg="#102c57")
+    label.pack(pady=20)
+
+    button_frame = Frame(window, bg="#102c57")
     button_frame.pack()
-    matematika_button = tk.Button(button_frame, text="Matematika", command=lambda: change_window(window, matematika_window))
-    fisika_button = tk.Button(button_frame, text="Fisika", command=lambda: change_window(window, fisika_window))
-    kimia_button = tk.Button(button_frame, text="Kimia", command=lambda: change_window(window, kimia_window))
-    biologi_button = tk.Button(button_frame, text="Biologi", command=lambda: change_window(window, biologi_window))
-    b_indonesia_button = tk.Button(button_frame, text="B. Indonesia", command=lambda: change_window(window, b_indonesia_window))
-    back_button = tk.Button(button_frame, text="Back", command=lambda: change_window(window, sort_view_export_students))
-    matematika_button.pack()
-    fisika_button.pack()
-    kimia_button.pack()
-    biologi_button.pack()
-    b_indonesia_button.pack()
-    back_button.pack()
+
+    # Button styling
+    button_font = ("Arial", 12, 'bold')
+    button_bg = "#4CAF50"
+    button_fg = "white"
+    button_width = 20  # Adjust as needed
+    button_height = 2   # Adjust as needed
+    button_padx = 10    # Adjust padding as needed
+    button_pady = 5    # Adjust padding as needed
+
+    matematika_button = Button(button_frame, text="Matematika", font=button_font, bg=button_bg, fg=button_fg, width=button_width, height=button_height, padx=button_padx, pady=button_pady, command=lambda: change_window(window, matematika_window))
+    fisika_button = Button(button_frame, text="Fisika", font=button_font, bg=button_bg, fg=button_fg, width=button_width, height=button_height, padx=button_padx, pady=button_pady, command=lambda: change_window(window, fisika_window))
+    kimia_button = Button(button_frame, text="Kimia", font=button_font, bg=button_bg, fg=button_fg, width=button_width, height=button_height, padx=button_padx, pady=button_pady, command=lambda: change_window(window, kimia_window))
+    biologi_button = Button(button_frame, text="Biologi", font=button_font, bg=button_bg, fg=button_fg, width=button_width, height=button_height, padx=button_padx, pady=button_pady, command=lambda: change_window(window, biologi_window))
+    b_indonesia_button = Button(button_frame, text="B. Indonesia", font=button_font, bg=button_bg, fg=button_fg, width=button_width, height=button_height, padx=button_padx, pady=button_pady, command=lambda: change_window(window, b_indonesia_window))
+    
+    # Change the background color of the back button to red
+    back_button = Button(button_frame, text="Back", font=button_font, bg="#f44336", fg=button_fg, width=button_width, height=button_height, padx=button_padx, pady=button_pady, command=lambda: change_window(window, sort_view_export_students))
+
+    matematika_button.pack(pady=10)
+    fisika_button.pack(pady=10)
+    kimia_button.pack(pady=10)
+    biologi_button.pack(pady=10)
+    b_indonesia_button.pack(pady=10)
+    back_button.pack(pady=10)
+
     window.mainloop()
+
 
 def change_window(window, new_window):
     window.destroy()
@@ -602,19 +647,24 @@ def change_window(window, new_window):
 def matematika_window():
     sort_window = Toplevel()
     sort_window.title("Matematika")
-    sort_window.geometry("800x600")  # Set the window size to 800x600
+    sort_window.geometry("800x600")
+    sort_window.configure(bg="#102c57")  # Set background color
+    
+    # Create a label for sorting options
+    label = Label(sort_window, text="Sort by Math Score", font=("Arial", 20), fg="#f0f0f0", bg="#102c57")
+    label.pack(pady=20)
 
-    # Create a label and radio buttons for sorting options
-    label = tk.Label(sort_window, text="Sort by Math Score:")
-    label.pack(pady=10)
+    # Frame for radio buttons
+    radio_frame = Frame(sort_window, bg="#102c57")
+    radio_frame.pack(pady=10)
 
-    sorting_options = IntVar(value=0)
-    ascending_radio = Radiobutton(sort_window, text="Ascending", variable=sorting_options, value=1)
-    ascending_radio.pack()
-    descending_radio = Radiobutton(sort_window, text="Descending", variable=sorting_options, value=2)
-    descending_radio.pack()
+    sorting_options = IntVar()
+    ascending_radio = Radiobutton(radio_frame, text="Ascending", variable=sorting_options, value=1, font=("Arial", 12), bg="#102c57", fg="#f0f0f0", selectcolor="#4CAF50")
+    ascending_radio.pack(pady=5)
+    descending_radio = Radiobutton(radio_frame, text="Descending", variable=sorting_options, value=2, font=("Arial", 12), bg="#102c57", fg="#f0f0f0", selectcolor="#4CAF50")
+    descending_radio.pack(pady=5)
 
-    # Create a button to proceed with sorting
+    # Function to proceed with sorting
     def proceed_with_sorting():
         # Get the selected sorting option
         sorting_option = sorting_options.get()
@@ -644,35 +694,51 @@ def matematika_window():
         # Close the sorting options window
         sort_window.destroy()
 
-    proceed_button = tk.Button(sort_window, text="Proceed", command=proceed_with_sorting)
-    proceed_button.pack(pady=10)
+    # Button styling
+    button_font = ("Arial", 12, 'bold')
+    button_bg = "#4CAF50"
+    button_fg = "white"
+    button_width = 20  # Adjust as needed
+    button_height = 2   # Adjust as needed
+    button_padx = 10    # Adjust padding as needed
+    button_pady = 5    # Adjust padding as needed
 
-    # Create a back button to reopen the sort_export_window
+    # Proceed button
+    proceed_button = Button(sort_window, text="Proceed", font=button_font, bg=button_bg, fg=button_fg, width=button_width, height=button_height, padx=button_padx, pady=button_pady, command=proceed_with_sorting)
+    proceed_button.pack(pady=10)
+    
     def back_to_sort_by_score():
         sort_window.destroy()
         sort_by_score()
-
-    back_button = tk.Button(sort_window, text="Back", command=back_to_sort_by_score)
+        
+    # Back button
+    back_button = Button(sort_window, text="Back", font=button_font, bg="#f44336", fg=button_fg, width=button_width, height=button_height, padx=button_padx, pady=button_pady, command=back_to_sort_by_score)
     back_button.pack(pady=10)
 
     sort_window.mainloop()
 
+
 def fisika_window():
     sort_window = Toplevel()
     sort_window.title("Physics")
-    sort_window.geometry("800x600")  # Set the window size to 800x600
+    sort_window.geometry("800x600")
+    sort_window.configure(bg="#102c57")  # Set background color
+    
+    # Create a label for sorting options
+    label = Label(sort_window, text="Sort by Physics Score", font=("Arial", 20), fg="#f0f0f0", bg="#102c57")
+    label.pack(pady=20)
 
-    # Create a label and radio buttons for sorting options
-    label = tk.Label(sort_window, text="Sort by Physics Score:")
-    label.pack(pady=10)
+    # Frame for radio buttons
+    radio_frame = Frame(sort_window, bg="#102c57")
+    radio_frame.pack(pady=10)
 
-    sorting_options = IntVar(value=0)
-    ascending_radio = Radiobutton(sort_window, text="Ascending", variable=sorting_options, value=1)
-    ascending_radio.pack()
-    descending_radio = Radiobutton(sort_window, text="Descending", variable=sorting_options, value=2)
-    descending_radio.pack()
+    sorting_options = IntVar()
+    ascending_radio = Radiobutton(radio_frame, text="Ascending", variable=sorting_options, value=1, font=("Arial", 12), bg="#102c57", fg="#f0f0f0", selectcolor="#4CAF50")
+    ascending_radio.pack(pady=5)
+    descending_radio = Radiobutton(radio_frame, text="Descending", variable=sorting_options, value=2, font=("Arial", 12), bg="#102c57", fg="#f0f0f0", selectcolor="#4CAF50")
+    descending_radio.pack(pady=5)
 
-    # Create a button to proceed with sorting
+    # Function to proceed with sorting
     def proceed_with_sorting():
         # Get the selected sorting option
         sorting_option = sorting_options.get()
@@ -702,36 +768,51 @@ def fisika_window():
         # Close the sorting options window
         sort_window.destroy()
 
-    proceed_button = tk.Button(sort_window, text="Proceed", command=proceed_with_sorting)
-    proceed_button.pack(pady=10)
+    # Button styling
+    button_font = ("Arial", 12, 'bold')
+    button_bg = "#4CAF50"
+    button_fg = "white"
+    button_width = 20  # Adjust as needed
+    button_height = 2   # Adjust as needed
+    button_padx = 10    # Adjust padding as needed
+    button_pady = 5    # Adjust padding as needed
 
-    # Create a back button to reopen the sort_export_window
+    # Proceed button
+    proceed_button = Button(sort_window, text="Proceed", font=button_font, bg=button_bg, fg=button_fg, width=button_width, height=button_height, padx=button_padx, pady=button_pady, command=proceed_with_sorting)
+    proceed_button.pack(pady=10)
+    
     def back_to_sort_by_score():
         sort_window.destroy()
         sort_by_score()
-
-    back_button = tk.Button(sort_window, text="Back", command=back_to_sort_by_score)
+    # Back button
+    back_button = Button(sort_window, text="Back", font=button_font, bg="#f44336", fg=button_fg, width=button_width, height=button_height, padx=button_padx, pady=button_pady, command=back_to_sort_by_score)
     back_button.pack(pady=10)
 
     sort_window.mainloop()
 
 
+
 def kimia_window():
     sort_window = Toplevel()
     sort_window.title("Chemicals")
-    sort_window.geometry("800x600")  # Set the window size to 800x600
+    sort_window.geometry("800x600")
+    sort_window.configure(bg="#102c57")  # Set background color
 
-    # Create a label and radio buttons for sorting options
-    label = tk.Label(sort_window, text="Sort by Chemical Score:")
-    label.pack(pady=10)
+    # Create a label for sorting options
+    label = Label(sort_window, text="Sort by Chemical Score", font=("Arial", 20), fg="#f0f0f0", bg="#102c57")
+    label.pack(pady=20)
 
-    sorting_options = IntVar(value=0)
-    ascending_radio = Radiobutton(sort_window, text="Ascending", variable=sorting_options, value=1)
-    ascending_radio.pack()
-    descending_radio = Radiobutton(sort_window, text="Descending", variable=sorting_options, value=2)
-    descending_radio.pack()
+    # Frame for radio buttons
+    radio_frame = Frame(sort_window, bg="#102c57")
+    radio_frame.pack(pady=10)
 
-    # Create a button to proceed with sorting
+    sorting_options = IntVar()
+    ascending_radio = Radiobutton(radio_frame, text="Ascending", variable=sorting_options, value=1, font=("Arial", 12), bg="#102c57", fg="#f0f0f0", selectcolor="#4CAF50")
+    ascending_radio.pack(pady=5)
+    descending_radio = Radiobutton(radio_frame, text="Descending", variable=sorting_options, value=2, font=("Arial", 12), bg="#102c57", fg="#f0f0f0", selectcolor="#4CAF50")
+    descending_radio.pack(pady=5)
+
+    # Function to proceed with sorting
     def proceed_with_sorting():
         # Get the selected sorting option
         sorting_option = sorting_options.get()
@@ -761,35 +842,51 @@ def kimia_window():
         # Close the sorting options window
         sort_window.destroy()
 
-    proceed_button = tk.Button(sort_window, text="Proceed", command=proceed_with_sorting)
+    # Button styling
+    button_font = ("Arial", 12, 'bold')
+    button_bg = "#4CAF50"
+    button_fg = "white"
+    button_width = 20  # Adjust as needed
+    button_height = 2   # Adjust as needed
+    button_padx = 10    # Adjust padding as needed
+    button_pady = 5    # Adjust padding as needed
+
+    # Proceed button
+    proceed_button = Button(sort_window, text="Proceed", font=button_font, bg=button_bg, fg=button_fg, width=button_width, height=button_height, padx=button_padx, pady=button_pady, command=proceed_with_sorting)
     proceed_button.pack(pady=10)
 
-    # Create a back button to reopen the sort_export_window
     def back_to_sort_by_score():
         sort_window.destroy()
         sort_by_score()
 
-    back_button = tk.Button(sort_window, text="Back", command=back_to_sort_by_score)
+    # Back button
+    back_button = Button(sort_window, text="Back", font=button_font, bg="#f44336", fg=button_fg, width=button_width, height=button_height, padx=button_padx, pady=button_pady, command=back_to_sort_by_score)
     back_button.pack(pady=10)
 
     sort_window.mainloop()
 
+
 def biologi_window():
     sort_window = Toplevel()
     sort_window.title("Biology")
-    sort_window.geometry("800x600")  # Set the window size to 800x600
+    sort_window.geometry("800x600")
+    sort_window.configure(bg="#102c57")  # Set background color
 
-    # Create a label and radio buttons for sorting options
-    label = tk.Label(sort_window, text="Sort by Biology Score:")
-    label.pack(pady=10)
+    # Create a label for sorting options
+    label = Label(sort_window, text="Sort by Biology Score", font=("Arial", 20), fg="#f0f0f0", bg="#102c57")
+    label.pack(pady=20)
 
-    sorting_options = IntVar(value=0)
-    ascending_radio = Radiobutton(sort_window, text="Ascending", variable=sorting_options, value=1)
-    ascending_radio.pack()
-    descending_radio = Radiobutton(sort_window, text="Descending", variable=sorting_options, value=2)
-    descending_radio.pack()
+    # Frame for radio buttons
+    radio_frame = Frame(sort_window, bg="#102c57")
+    radio_frame.pack(pady=10)
 
-    # Create a button to proceed with sorting
+    sorting_options = IntVar()
+    ascending_radio = Radiobutton(radio_frame, text="Ascending", variable=sorting_options, value=1, font=("Arial", 12), bg="#102c57", fg="#f0f0f0", selectcolor="#4CAF50")
+    ascending_radio.pack(pady=5)
+    descending_radio = Radiobutton(radio_frame, text="Descending", variable=sorting_options, value=2, font=("Arial", 12), bg="#102c57", fg="#f0f0f0", selectcolor="#4CAF50")
+    descending_radio.pack(pady=5)
+
+    # Function to proceed with sorting
     def proceed_with_sorting():
         # Get the selected sorting option
         sorting_option = sorting_options.get()
@@ -819,35 +916,51 @@ def biologi_window():
         # Close the sorting options window
         sort_window.destroy()
 
-    proceed_button = tk.Button(sort_window, text="Proceed", command=proceed_with_sorting)
+    # Button styling
+    button_font = ("Arial", 12, 'bold')
+    button_bg = "#4CAF50"
+    button_fg = "white"
+    button_width = 20  # Adjust as needed
+    button_height = 2   # Adjust as needed
+    button_padx = 10    # Adjust padding as needed
+    button_pady = 5    # Adjust padding as needed
+
+    # Proceed button
+    proceed_button = Button(sort_window, text="Proceed", font=button_font, bg=button_bg, fg=button_fg, width=button_width, height=button_height, padx=button_padx, pady=button_pady, command=proceed_with_sorting)
     proceed_button.pack(pady=10)
 
-    # Create a back button to reopen the sort_export_window
     def back_to_sort_by_score():
         sort_window.destroy()
         sort_by_score()
 
-    back_button = tk.Button(sort_window, text="Back", command=back_to_sort_by_score)
+    # Back button
+    back_button = Button(sort_window, text="Back", font=button_font, bg="#f44336", fg=button_fg, width=button_width, height=button_height, padx=button_padx, pady=button_pady, command=back_to_sort_by_score)
     back_button.pack(pady=10)
 
     sort_window.mainloop()
 
+
 def b_indonesia_window():
     sort_window = Toplevel()
     sort_window.title("Indonesian Language")
-    sort_window.geometry("800x600")  # Set the window size to 800x600
+    sort_window.geometry("800x600")
+    sort_window.configure(bg="#102c57")  # Set background color
 
-    # Create a label and radio buttons for sorting options
-    label = tk.Label(sort_window, text="Sort by Indonesian Language Score:")
-    label.pack(pady=10)
+    # Create a label for sorting options
+    label = Label(sort_window, text="Sort by Indonesian Language Score", font=("Arial", 20), fg="#f0f0f0", bg="#102c57")
+    label.pack(pady=20)
 
-    sorting_options = IntVar(value=0)
-    ascending_radio = Radiobutton(sort_window, text="Ascending", variable=sorting_options, value=1)
-    ascending_radio.pack()
-    descending_radio = Radiobutton(sort_window, text="Descending", variable=sorting_options, value=2)
-    descending_radio.pack()
+    # Frame for radio buttons
+    radio_frame = Frame(sort_window, bg="#102c57")
+    radio_frame.pack(pady=10)
 
-    # Create a button to proceed with sorting
+    sorting_options = IntVar()
+    ascending_radio = Radiobutton(radio_frame, text="Ascending", variable=sorting_options, value=1, font=("Arial", 12), bg="#102c57", fg="#f0f0f0", selectcolor="#4CAF50")
+    ascending_radio.pack(pady=5)
+    descending_radio = Radiobutton(radio_frame, text="Descending", variable=sorting_options, value=2, font=("Arial", 12), bg="#102c57", fg="#f0f0f0", selectcolor="#4CAF50")
+    descending_radio.pack(pady=5)
+
+    # Function to proceed with sorting
     def proceed_with_sorting():
         # Get the selected sorting option
         sorting_option = sorting_options.get()
@@ -877,41 +990,62 @@ def b_indonesia_window():
         # Close the sorting options window
         sort_window.destroy()
 
-    proceed_button = tk.Button(sort_window, text="Proceed", command=proceed_with_sorting)
+    # Button styling
+    button_font = ("Arial", 12, 'bold')
+    button_bg = "#4CAF50"
+    button_fg = "white"
+    button_width = 20  # Adjust as needed
+    button_height = 2   # Adjust as needed
+    button_padx = 10    # Adjust padding as needed
+    button_pady = 5    # Adjust padding as needed
+
+    # Proceed button
+    proceed_button = Button(sort_window, text="Proceed", font=button_font, bg=button_bg, fg=button_fg, width=button_width, height=button_height, padx=button_padx, pady=button_pady, command=proceed_with_sorting)
     proceed_button.pack(pady=10)
 
-    # Create a back button to reopen the sort_export_window
     def back_to_sort_by_score():
         sort_window.destroy()
         sort_by_score()
 
-    back_button = tk.Button(sort_window, text="Back", command=back_to_sort_by_score)
+    # Back button
+    back_button = Button(sort_window, text="Back", font=button_font, bg="#f44336", fg=button_fg, width=button_width, height=button_height, padx=button_padx, pady=button_pady, command=back_to_sort_by_score)
     back_button.pack(pady=10)
 
     sort_window.mainloop()
+
 
     
 
 
 # Case 2 (Case 3)
 def sort_by_ranking():
-    # Create a new window for sorting options
+    # Close the previous window
     close_sort_export_window()
+
+    # Create a new sorting options window
     sort_window = Toplevel()
-    sort_window.title("Sorting Options")
+    sort_window.title("Sort by Ranking")
     sort_window.geometry("800x600")
+    sort_window.configure(bg="#102c57")  # Set background color
 
-    # Create a label and radio buttons for sorting options
-    label = Label(sort_window, text="Sort by Rank:")
-    label.pack(pady=10)
+    # Label for sorting options
+    label = Label(sort_window, text="Sort by Rank:", font=("Arial", 20), fg="#f0f0f0", bg="#102c57")
+    label.pack(pady=20)
 
+    # Frame for radio buttons
+    radio_frame = Frame(sort_window, bg="#102c57")
+    radio_frame.pack(pady=10)
+
+    # IntVar for radio buttons
     sorting_options = IntVar()
-    ascending_radio = Radiobutton(sort_window, text="Ascending", variable=sorting_options, value=1)
-    ascending_radio.pack()
-    descending_radio = Radiobutton(sort_window, text="Descending", variable=sorting_options, value=2)
-    descending_radio.pack()
 
-    # Create a button to proceed with sorting
+    # Radiobuttons for sorting options
+    ascending_radio = Radiobutton(radio_frame, text="Ascending", variable=sorting_options, value=1, font=("Arial", 12), bg="#102c57", fg="#f0f0f0", selectcolor="#4CAF50")
+    ascending_radio.pack(pady=5)
+    descending_radio = Radiobutton(radio_frame, text="Descending", variable=sorting_options, value=2, font=("Arial", 12), bg="#102c57", fg="#f0f0f0", selectcolor="#4CAF50")
+    descending_radio.pack(pady=5)
+
+    # Function to proceed with sorting
     def proceed_with_sorting():
         # Get the selected sorting option
         sorting_option = sorting_options.get()
@@ -941,36 +1075,49 @@ def sort_by_ranking():
         # Close the sorting options window
         sort_window.destroy()
 
-    proceed_button = Button(sort_window, text="Proceed", command=proceed_with_sorting)
+    # Proceed button
+    proceed_button = Button(sort_window, text="Proceed", font=("Arial", 12, 'bold'), bg="#4CAF50", fg="white", width=20, height=2, padx=10, pady=5, command=proceed_with_sorting)
     proceed_button.pack(pady=10)
-
-    # Create a back button to reopen the sort_export_window
+    
+    # Back button
     def back_to_sort_export():
         sort_window.destroy()
         sort_view_export_students()
-
-    back_button = Button(sort_window, text="Back", command=back_to_sort_export)
+    
+    back_button = Button(sort_window, text="Back", font=("Arial", 12, 'bold'), bg="#f44336", fg="white", width=20, height=2, padx=10, pady=5, command=back_to_sort_export)
     back_button.pack(pady=10)
+
+    sort_window.mainloop()
 
 
 # Case 2 (Case 4)
 
 def sort_by_class():
-    # Create a new window for sorting options
+    # Close the previous window
     close_sort_export_window()
+
+    # Create a new sorting options window
     sort_window = Toplevel()
-    sort_window.title("Sorting Options")
+    sort_window.title("Sort by Class")
     sort_window.geometry("800x600")
+    sort_window.configure(bg="#102c57")  # Set background color
 
-    # Create a label and radio buttons for sorting options
-    label = Label(sort_window, text="Sort by Class:")
-    label.pack(pady=10)
+    # Label for sorting options
+    label = Label(sort_window, text="Sort by Class:", font=("Arial", 20), fg="#f0f0f0", bg="#102c57")
+    label.pack(pady=20)
 
+    # Frame for radio buttons
+    radio_frame = Frame(sort_window, bg="#102c57")
+    radio_frame.pack(pady=10)
+
+    # IntVar for radio buttons
     sorting_options = IntVar()
-    ascending_radio = Radiobutton(sort_window, text="Ascending", variable=sorting_options, value=1)
-    ascending_radio.pack()
-    descending_radio = Radiobutton(sort_window, text="Descending", variable=sorting_options, value=2)
-    descending_radio.pack()
+
+    # Radiobuttons for sorting options
+    ascending_radio = Radiobutton(radio_frame, text="Ascending", variable=sorting_options, value=1, font=("Arial", 12), bg="#102c57", fg="#f0f0f0", selectcolor="#4CAF50")
+    ascending_radio.pack(pady=5)
+    descending_radio = Radiobutton(radio_frame, text="Descending", variable=sorting_options, value=2, font=("Arial", 12), bg="#102c57", fg="#f0f0f0", selectcolor="#4CAF50")
+    descending_radio.pack(pady=5)
 
     # Create a button to proceed with sorting
     def proceed_with_sorting():
@@ -1002,16 +1149,18 @@ def sort_by_class():
         # Close the sorting options window
         sort_window.destroy()
 
-    proceed_button = Button(sort_window, text="Proceed", command=proceed_with_sorting)
+    # Proceed button
+    proceed_button = Button(sort_window, text="Proceed", font=("Arial", 12, 'bold'), bg="#4CAF50", fg="white", width=20, height=2, padx=10, pady=5, command=proceed_with_sorting)
     proceed_button.pack(pady=10)
-
-    # Create a back button to reopen the sort_export_window
+    
+    # Back button
     def back_to_sort_export():
         sort_window.destroy()
         sort_view_export_students()
-
-    back_button = Button(sort_window, text="Back", command=back_to_sort_export)
+    
+    back_button = Button(sort_window, text="Back", font=("Arial", 12, 'bold'), bg="#f44336", fg="white", width=20, height=2, padx=10, pady=5, command=back_to_sort_export)
     back_button.pack(pady=10)
+
 
 # Display sorted data 
 def display_sorted_students(students_array, count, filename_c, title):
@@ -1019,6 +1168,7 @@ def display_sorted_students(students_array, count, filename_c, title):
     table_window = Toplevel()
     table_window.title(title)
     table_window.geometry("1000x600")
+    
 
     text_area = Text(table_window, width=120, height=30)
     text_area.pack(pady=20)
@@ -1071,8 +1221,9 @@ def display_sorted_students(students_array, count, filename_c, title):
         # Show success message
         messagebox.showinfo("Export Success", f"File is exported successfully with the filename: {unique_filename}")
 
-    Button(table_window, text="Back", command=go_back).pack(side=tk.LEFT, padx=10)
-    Button(table_window, text="Export to CSV", command=lambda: export_to_csv(filename_c, title)).pack(side=tk.LEFT, padx=10)
+    Button(table_window, text="Back", font=("Arial", 12, 'bold'), bg="#f44336", fg="white", width=15, height=1, padx=10, pady=5, command=go_back).pack(side=tk.LEFT, padx=10)
+    Button(table_window, text="Export to CSV", font=("Arial", 12, 'bold'), bg="#4CAF50", fg="white", width=15, height=1, padx=10, pady=5, command=lambda: export_to_csv(filename_c, title)).pack(side=tk.LEFT, padx=10)
+
     
    
 # Case 2 (Case 5)   
@@ -1123,8 +1274,9 @@ def display_unsorted_students():
         sort_window.destroy()
         sort_view_export_students()
 
-    back_button = Button(sort_window, text="Back", command=back_to_sort_export)
+    back_button = Button(sort_window, text="Back", font=("Arial", 12, 'bold'), bg="#f44336", fg="white", width=15, height=1, padx=10, pady=5, command=back_to_sort_export)
     back_button.pack(pady=10)
+
 
 
 # Case 2 (Case 6)
@@ -1138,6 +1290,10 @@ def searching_siswa(root_siswa, previous_window):
     search_window = tk.Toplevel()
     search_window.title("Search Students")
     search_window.geometry("1000x600")
+
+    # Configure a styled background for the search window
+    background_color = "#102c57"
+    search_window.configure(bg=background_color)
 
     def handle_search(search_type, entry_widget):
         search_param = entry_widget.get().strip()
@@ -1226,39 +1382,52 @@ def searching_siswa(root_siswa, previous_window):
             ))
             text_area.insert(tk.END, "----------------------------------------------------------------------------------------------------------------------\n")
 
-    # Labels and entry widgets for inputs
-    id_label = tk.Label(search_window, text="Search by ID:")
-    id_label.grid(row=0, column=0, padx=10, pady=10)
-    id_entry = tk.Entry(search_window)
+    # Frame to hold labels, entry widgets, and buttons
+    frame = tk.Frame(search_window, padx=20, pady=20, bg=background_color)
+    frame.pack(expand=True, fill=tk.BOTH)
+
+    # Labels and entry widgets for inputs with custom font
+    label_font = ("Arial", 12, "bold")
+    
+    id_label = tk.Label(frame, text="Search by ID:", font=label_font, bg=background_color, fg="#f0f0f0")
+    id_label.grid(row=0, column=0, padx=10, pady=10, sticky="w")
+    id_entry = tk.Entry(frame, width=30)
     id_entry.grid(row=0, column=1, padx=10, pady=10)
 
-    class_label = tk.Label(search_window, text="Search by Class:")
-    class_label.grid(row=1, column=0, padx=10, pady=10)
-    class_entry = tk.Entry(search_window)
+    class_label = tk.Label(frame, text="Search by Class:", font=label_font, bg=background_color, fg="#f0f0f0")
+    class_label.grid(row=1, column=0, padx=10, pady=10, sticky="w")
+    class_entry = tk.Entry(frame, width=30)
     class_entry.grid(row=1, column=1, padx=10, pady=10)
 
-    name_label = tk.Label(search_window, text="Search by Name:")
-    name_label.grid(row=2, column=0, padx=10, pady=10)
-    name_entry = tk.Entry(search_window)
+    name_label = tk.Label(frame, text="Search by Name:", font=label_font, bg=background_color, fg="#f0f0f0")
+    name_label.grid(row=2, column=0, padx=10, pady=10, sticky="w")
+    name_entry = tk.Entry(frame, width=30)
     name_entry.grid(row=2, column=1, padx=10, pady=10)
 
-    # Buttons for search actions
-    tk.Button(search_window, text="Search by ID", command=lambda: handle_search("ID", id_entry)).grid(row=0, column=2, padx=10, pady=10)
-    tk.Button(search_window, text="Search by Class", command=lambda: handle_search("Class", class_entry)).grid(row=1, column=2, padx=10, pady=10)
-    tk.Button(search_window, text="Search by Name", command=lambda: handle_search("Name", name_entry)).grid(row=2, column=2, padx=10, pady=10)
+    # Buttons for search actions with custom styling
+    button_bg_color = "#4CAF50"
+    button_fg_color = "white"
+    button_width = 15
+    button_font = ("Arial", 10, "bold")
 
-    # Back button to return to previous window
-    def go_back():
-        search_window.destroy()  # Destroy the search window
-        sort_view_export_students()
+    search_button_id = tk.Button(frame, text="Search by ID", width=button_width, font=button_font, bg=button_bg_color, fg=button_fg_color, command=lambda: handle_search("ID", id_entry))
+    search_button_id.grid(row=0, column=2, padx=10, pady=10)
 
-    back_button = tk.Button(search_window, text="Back", command=go_back)
-    back_button.grid(row=3, column=1, pady=10)
+    search_button_class = tk.Button(frame, text="Search by Class", width=button_width, font=button_font, bg=button_bg_color, fg=button_fg_color, command=lambda: handle_search("Class", class_entry))
+    search_button_class.grid(row=1, column=2, padx=10, pady=10)
 
-    search_window.protocol("WM_DELETE_WINDOW", go_back)  # Handle window close button
+    search_button_name = tk.Button(frame, text="Search by Name", width=button_width, font=button_font, bg=button_bg_color, fg=button_fg_color, command=lambda: handle_search("Name", name_entry))
+    search_button_name.grid(row=2, column=2, padx=10, pady=10)
+
+    # Back button to return to previous window with custom styling
+    back_button = tk.Button(search_window, text="Back", bg="#f44336", fg=button_fg_color, command=search_window.destroy, width=button_width, font=button_font )
+    back_button.pack(side=tk.BOTTOM, padx=10, pady=10)
+
+    search_window.protocol("WM_DELETE_WINDOW", search_window.destroy)  # Handle window close button
 
     search_window.mainloop()
-
+    
+    
 # Case 2 (Case 7)
 
 def export(filename_c, title):
@@ -1302,6 +1471,7 @@ def update_student_info(root_siswa, previous_window):
     update_window = tk.Toplevel()
     update_window.title("Update Student Information")
     update_window.geometry("500x600")
+    update_window.configure(bg="#102c57")
 
     # Function to search by name
     def handle_search(search_type, entry_widget):
@@ -1309,7 +1479,6 @@ def update_student_info(root_siswa, previous_window):
         if not search_param:
             messagebox.showwarning("Input Error", f"Please enter a {search_type} to search.")
             return
-        search_type == "Name"
         try:
             if search_type == "ID":
                 result_ptr = gabung.searchID(root_siswa, search_param.encode())
@@ -1370,13 +1539,26 @@ def update_student_info(root_siswa, previous_window):
             text_area.insert(tk.END, "----------------------------------------------------------------------------------------------------------------------\n")
 
     # Labels and entry widgets for searching by name
-    name_search_label = tk.Label(update_window, text="Search by Name:")
+    label_font = ("Arial", 12, 'bold')
+    label_fg = "#f0f0f0"
+    name_search_label = tk.Label(update_window, text="Search by Name:", font=label_font, fg=label_fg, bg="#102c57")
     name_search_label.grid(row=0, column=0, padx=10, pady=10)
-    name_search_entry = tk.Entry(update_window)
+    name_search_entry = tk.Entry(update_window, font=label_font)
     name_search_entry.grid(row=0, column=1, padx=10, pady=10)
 
+    # Button styling
+    button_font = ("Arial", 12, 'bold')
+    button_bg = "#4CAF50"
+    button_fg = "white"
+    button_width = 10  # Adjust as needed
+    button_height = 1   # Adjust as needed
+    button_padx = 5    # Adjust padding as needed
+    button_pady = 1    # Adjust padding as needed
+
     # Button for searching by name
-    search_name_button = tk.Button(update_window, text="Search by Name", command=lambda: handle_search("Name", name_search_entry))
+    search_name_button = tk.Button(update_window, text="Search", font=button_font, bg=button_bg, fg=button_fg,
+                                   width=button_width, height=button_height, padx=button_padx, pady=button_pady,
+                                   command=lambda: handle_search("Name", name_search_entry))
     search_name_button.grid(row=0, column=2, padx=10, pady=10)
 
     # Labels and entry widgets for updating fields
@@ -1386,14 +1568,14 @@ def update_student_info(root_siswa, previous_window):
               ("Physics", "nilaiFis"), 
               ("Chemistry", "nilaiKim"), 
               ("Biology", "nilaiBio"), 
-              ("B. Indonesia", "nilaiBindo")]
+              ("Indonesian", "nilaiBindo")]
 
     entries = {}
 
     for i, (label_text, field_name) in enumerate(fields, start=1):
-        label = tk.Label(update_window, text=f"{label_text}:")
+        label = tk.Label(update_window, text=f"{label_text}:", font=label_font, fg=label_fg, bg="#102c57")
         label.grid(row=i, column=0, padx=10, pady=10)
-        entry = tk.Entry(update_window)
+        entry = tk.Entry(update_window, font=label_font)
         entry.grid(row=i, column=1, padx=10, pady=10)
         entries[field_name] = entry
 
@@ -1452,26 +1634,33 @@ def update_student_info(root_siswa, previous_window):
             update.grade = gabung.generateGrade(update.rata2)
             gabung.writeStudentsToFile(root_siswa, ctypes.c_char_p(b"sma_students_data1.csv"))
             messagebox.showinfo("Success", "Student information updated successfully.")
+        
         except Exception as e:
             messagebox.showerror("Error", f"An error occurred while updating student information: {e}")
 
     # Entry widget for student ID
-    id_label = tk.Label(update_window, text="Student ID:")
+    id_label = tk.Label(update_window, text="Student ID:", font=label_font, fg=label_fg, bg="#102c57")
     id_label.grid(row=len(fields)+1, column=0, padx=10, pady=10)
-    id_entry = tk.Entry(update_window)
+    id_entry = tk.Entry(update_window, font=label_font)
     id_entry.grid(row=len(fields)+1, column=1, padx=10, pady=10)
 
     # Update button
-    update_button = tk.Button(update_window, text="Update", command=handle_update)
+    update_button = tk.Button(update_window, text="Update", font=button_font, bg=button_bg, fg=button_fg,
+                              width=button_width, height=button_height, padx=button_padx, pady=button_pady,
+                              command=handle_update)
     update_button.grid(row=len(fields)+2, columnspan=2, pady=20)
 
     # Back button
-    def back_to_main_window(update_window, current_user):
+    def back_to_main_window():
         update_window.destroy()
         main_datasiswa_window(current_user)
 
-    back_button = tk.Button(update_window, text="Back", command=lambda: back_to_main_window(update_window, current_user))
+    back_button = tk.Button(update_window, text="Back", font=button_font, bg="red", fg=button_fg,
+                              width=button_width, height=button_height, padx=button_padx, pady=button_pady,
+                              command=back_to_main_window)
     back_button.grid(row=len(fields)+3, columnspan=2, pady=20)
+
+    update_window.mainloop()
 
 ##############################################################################
 
@@ -1491,20 +1680,22 @@ def delete_student(current_user):
     # Create the delete student data window
     delete_window = tk.Tk()
     delete_window.title("Delete Student Data")
-    delete_window.geometry("400x200")
-    delete_window.configure(bg="#f0f0f0")
-
-    # Define entry widget for student ID
-    student_id_label = tk.Label(delete_window, text="Student ID:")
-    student_id_label.grid(row=0, column=0, padx=10, pady=10)
-    student_id_entry = tk.Entry(delete_window)
-    student_id_entry.grid(row=0, column=1, padx=10, pady=10)
+    delete_window.geometry("600x400")
+    delete_window.configure(bg="#102c57")
 
     # Labels and entry widgets for searching by name
-    name_search_label = tk.Label(delete_window, text="Search by Name:")
-    name_search_label.grid(row=1, column=0, padx=10, pady=10)
-    name_search_entry = tk.Entry(delete_window)
-    name_search_entry.grid(row=1, column=1, padx=10, pady=10)
+    label_font = ("Arial", 12, 'bold')
+    label_fg = "#f0f0f0"
+    name_search_label = tk.Label(delete_window, text="Search by Name:", font=label_font, bg="#102c57", fg=label_fg)
+    name_search_label.grid(row=1, column=0, padx=20, pady=20)
+    name_search_entry = tk.Entry(delete_window, font=label_font)
+    name_search_entry.grid(row=1, column=1, padx=20, pady=20)
+
+    # Define entry widget for student ID 
+    student_id_label = tk.Label(delete_window, text="Student ID:", font=label_font, bg="#102c57", fg=label_fg)
+    student_id_label.grid(row=0, column=0, padx=20, pady=20)
+    student_id_entry = tk.Entry(delete_window, font=label_font)
+    student_id_entry.grid(row=0, column=1, padx=20, pady=20)
 
     def delete_student_data():
         global root_siswa  # Access root_siswa from the global scope
@@ -1617,21 +1808,27 @@ def delete_student(current_user):
 
     def go_back():
         delete_window.destroy()
-        # Add navigation back to main window if needed
-
-    # Button for searching by name
-    search_name_button = tk.Button(delete_window, text="Search by Name", command=lambda: handle_search("Name", name_search_entry))
-    search_name_button.grid(row=1, column=2, padx=10, pady=10)
+        main_datasiswa_window(current_user)
 
     # Button for deleting student data
-    delete_button = tk.Button(delete_window, text="Delete", command=delete_student_data)
-    delete_button.grid(row=2, column=0, padx=10, pady=10)
+    button_font = ("Arial", 12, 'bold')
+    delete_button = tk.Button(delete_window, text="Delete", font=button_font, command=delete_student_data, width=10,
+                              bg="#4CAF50", fg="white", padx=10, pady=5)
+    delete_button.grid(row=2, column=0, padx=20, pady=20)
+    
+    # Button for searching by name
+    search_name_button = tk.Button(delete_window, text="Search", font=button_font, command=lambda: handle_search("Name", name_search_entry), width=10,
+                                   bg="#4CAF50", fg="white", padx=10, pady=5)
+    search_name_button.grid(row=1, column=2, padx=20, pady=20)
 
     # Button for going back
-    back_button = tk.Button(delete_window, text="Back", command=go_back)
-    back_button.grid(row=2, column=1, padx=10, pady=10)
+    back_button = tk.Button(delete_window, text="Back", font=button_font, command=go_back, width=10,
+                            bg="red", fg="white", padx=10, pady=5)
+    back_button.grid(row=2, column=1, padx=20, pady=20)
 
     delete_window.mainloop()
+    
+    
     
 ##############################################################################
 
@@ -1695,18 +1892,45 @@ def plot(class_filter=None):
 def create_plotting_window(current_user):
     plot_window = tk.Toplevel()
     plot_window.title("Plot Average Scores")
-    plot_window.geometry("500x300")
+    plot_window.geometry("800x600")
+    plot_window.configure(bg="#102c57")  # Setting background color for the window
 
-    tk.Button(plot_window, text="Plot Whole Average", command=lambda: plot()).pack(pady=10)
-    tk.Button(plot_window, text="Plot Average for Class 10", command=lambda: plot(10)).pack(pady=10)
-    tk.Button(plot_window, text="Plot Average for Class 11", command=lambda: plot(11)).pack(pady=10)
-    tk.Button(plot_window, text="Plot Average for Class 12", command=lambda: plot(12)).pack(pady=10)
-    def go_back():
-        plot_window.destroy()
-        main_datasiswa_window(plot_window, current_user)
+    # Button styling
+    button_font = ("Arial", 12, 'bold')
+    button_bg = "#4CAF50"
+    button_fg = "white"
+    button_width = 20
+    button_height = 2
+    button_padx = 10
+    button_pady = 5
 
-    back_button = tk.Button(plot_window, text="Back", command=go_back)
+    # Button to plot whole average
+    tk.Button(plot_window, text="Plot Whole Average", font=button_font, bg=button_bg, fg=button_fg,
+              width=button_width, height=button_height, padx=button_padx, pady=button_pady,
+              command=lambda: plot()).pack(pady=10)
+
+    # Button to plot average for Class 10
+    tk.Button(plot_window, text="Plot Average for Class 10", font=button_font, bg=button_bg, fg=button_fg,
+              width=button_width, height=button_height, padx=button_padx, pady=button_pady,
+              command=lambda: plot(10)).pack(pady=10)
+
+    # Button to plot average for Class 11
+    tk.Button(plot_window, text="Plot Average for Class 11", font=button_font, bg=button_bg, fg=button_fg,
+              width=button_width, height=button_height, padx=button_padx, pady=button_pady,
+              command=lambda: plot(11)).pack(pady=10)
+
+    # Button to plot average for Class 12
+    tk.Button(plot_window, text="Plot Average for Class 12", font=button_font, bg=button_bg, fg=button_fg,
+              width=button_width, height=button_height, padx=button_padx, pady=button_pady,
+              command=lambda: plot(12)).pack(pady=10)
+
+    # Button to go back
+    back_button = tk.Button(plot_window, text="Back", font=button_font, bg="red", fg="white",
+                            width=button_width, height=button_height, padx=button_padx, pady=button_pady,
+                            command=plot_window.destroy)
     back_button.pack(pady=10)
+
+    plot_window.mainloop()
 
 
 
