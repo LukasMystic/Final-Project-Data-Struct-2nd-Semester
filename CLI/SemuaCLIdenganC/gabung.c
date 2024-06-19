@@ -1781,8 +1781,6 @@ __declspec(dllexport) void displayStudents(struct AVLSiswa **node) {
                 system("cls");
                 break;
             case 8:
-                mainDatasiswa();
-                break;
                 return;
             default:
                 printf("Invalid choice! Please enter a number between 1 and 8.\n\n");
