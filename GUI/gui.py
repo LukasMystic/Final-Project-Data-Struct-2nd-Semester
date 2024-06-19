@@ -625,7 +625,7 @@ def sort_by_score():
     fisika_button = Button(button_frame, text="Fisika", font=button_font, bg=button_bg, fg=button_fg, width=button_width, height=button_height, padx=button_padx, pady=button_pady, command=lambda: change_window(window, fisika_window))
     kimia_button = Button(button_frame, text="Kimia", font=button_font, bg=button_bg, fg=button_fg, width=button_width, height=button_height, padx=button_padx, pady=button_pady, command=lambda: change_window(window, kimia_window))
     biologi_button = Button(button_frame, text="Biologi", font=button_font, bg=button_bg, fg=button_fg, width=button_width, height=button_height, padx=button_padx, pady=button_pady, command=lambda: change_window(window, biologi_window))
-    b_indonesia_button = Button(button_frame, text="B. Indonesia", font=button_font, bg=button_bg, fg=button_fg, width=button_width, height=button_height, padx=button_padx, pady=button_pady, command=lambda: change_window(window, b_indonesia_window))
+    b_indonesia_button = Button(button_frame, text="Indonesian", font=button_font, bg=button_bg, fg=button_fg, width=button_width, height=button_height, padx=button_padx, pady=button_pady, command=lambda: change_window(window, b_indonesia_window))
     
     # Change the background color of the back button to red
     back_button = Button(button_frame, text="Back", font=button_font, bg="#f44336", fg=button_fg, width=button_width, height=button_height, padx=button_padx, pady=button_pady, command=lambda: change_window(window, sort_view_export_students))
@@ -1639,7 +1639,7 @@ def update_student_info(root_siswa, previous_window):
             messagebox.showerror("Error", f"An error occurred while updating student information: {e}")
 
     # Entry widget for student ID
-    id_label = tk.Label(update_window, text="Student ID:", font=label_font, fg=label_fg, bg="#102c57")
+    id_label = tk.Label(update_window, text="Student ID* :", font=label_font, fg=label_fg, bg="#102c57")
     id_label.grid(row=len(fields)+1, column=0, padx=10, pady=10)
     id_entry = tk.Entry(update_window, font=label_font)
     id_entry.grid(row=len(fields)+1, column=1, padx=10, pady=10)
@@ -1692,7 +1692,7 @@ def delete_student(current_user):
     name_search_entry.grid(row=1, column=1, padx=20, pady=20)
 
     # Define entry widget for student ID 
-    student_id_label = tk.Label(delete_window, text="Student ID:", font=label_font, bg="#102c57", fg=label_fg)
+    student_id_label = tk.Label(delete_window, text="Student ID*:", font=label_font, bg="#102c57", fg=label_fg)
     student_id_label.grid(row=0, column=0, padx=20, pady=20)
     student_id_entry = tk.Entry(delete_window, font=label_font)
     student_id_entry.grid(row=0, column=1, padx=20, pady=20)
