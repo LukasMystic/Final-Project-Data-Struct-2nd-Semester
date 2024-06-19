@@ -33,3 +33,22 @@ Libraries that we used for GUI:<br><br>
 3. tkinter ==> installation guide: https://www.tutorialspoint.com/how-to-install-tkinter-in-python ==> pip install tk<br><br>
 
 4. Pillow ==> installation guide: https://pypi.org/project/pillow/ ==> pip install pillow<br><br>
+<br>
+
+-----------------------------------------------------------------------
+<br>
+You can find all the link for the backup files here: <br>
+<br>
+
+Link Onedrive: https://binusianorg-my.sharepoint.com/personal/mochammad_pasha_binus_ac_id/_layouts/15/guestaccess.aspx?share=EsEey2r6y1FFqBHjtDUu7e8BjzwdrAFOfsHlVq-S_f_4PQ&e=e3Mbrt
+<br><br><br>
+
+Link Canva(GitHub, Canva Public View, Semua Video, Jobdesk, dll): https://www.canva.com/design/DAGIYBJ09xI/e_HgiJpDiwP5B1zraa2a-g/view?utm_content=DAGIYBJ09xI&utm_campaign=designshare&utm_medium=link&utm_source=editor
+<br><br><br>
+
+Link Github: https://github.com/LukasMystic/Final-Project-Data-Struct-2nd-Semester/tree/main
+
+<br><br><br>
+Link Tutorial: https://binusianorg-my.sharepoint.com/personal/mochammad_pasha_binus_ac_id/_layouts/15/guestaccess.aspx?share=EWRtZ7dQEwNBjeyXyLCtE-EBv-5AHKpJ7PFhMGt1P-AVig&nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJPbmVEcml2ZUZvckJ1c2luZXNzIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXciLCJyZWZlcnJhbFZpZXciOiJNeUZpbGVzTGlua0NvcHkifX0&e=FqDhSp
+
+
