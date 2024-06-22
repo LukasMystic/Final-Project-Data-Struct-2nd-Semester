@@ -1599,8 +1599,7 @@ def update_student_info(root_siswa, previous_window):
                     if field_name == "fullname":
                         if 2 <= len(value) <= 90:
                             if gabung.isValidName(value.encode()):
-                                formatted_name = format_name_display(value.encode())
-                                ctypes.memmove(update.fullname, formatted_name.encode(), len(formatted_name)+1)
+                                update.fullname = value.encode()
                             else:
                                 messagebox.showwarning("Input Error", "Invalid name format.")
                                 return
