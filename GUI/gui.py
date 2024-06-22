@@ -250,6 +250,7 @@ current_user = None
 root_siswa = None
 current_siswa = None  
 
+
 def close_sort_export_window():
     global sort_export_window
     if sort_export_window:
@@ -301,8 +302,8 @@ def main_datasiswa_window(previous_window, current_user):
     previous_window.withdraw()  # Close the previous window
     global root_siswa
     root_siswa = load_students_from_file()
-    
     main_window = Toplevel()
+    main_window.iconbitmap('teacher.ico')
     main_window.title("Main Data Assessment Menu")
     main_window.geometry("1000x900")
     main_window.configure(bg="#102c57")
@@ -352,7 +353,6 @@ def main_datasiswa_window(previous_window, current_user):
 # case 1 (insert)
 def insert_student(current_user):
     global root_siswa
-
     # Function to destroy previous window if it's a Tkinter object
     def destroy_previous_window(window):
         if isinstance(window, tk.Toplevel) or isinstance(window, tk.Tk):
@@ -364,6 +364,7 @@ def insert_student(current_user):
 
     # Create the insert student data window
     insert_window = tk.Tk()
+    insert_window.iconbitmap('teacher.ico')
     insert_window.title("Insert Student Data")
     insert_window.geometry("800x800")
     insert_window.configure(bg="#102c57")
@@ -489,6 +490,7 @@ def sort_view_export_students():
 
     # Create the main window
     sort_export_window = Toplevel()
+    sort_export_window.iconbitmap('teacher.ico')
     sort_export_window.title("Sort, View, and Export Student Grades")
     sort_export_window.geometry("800x600")
     sort_export_window.configure(bg="#102c57")  # Background color
@@ -529,7 +531,9 @@ def sort_view_export_students():
 def sort_by_name():
     # Create a new window for sorting options
     close_sort_export_window()
+    root.iconbitmap('teacher.ico')
     sort_window = Toplevel()
+    sort_window.iconbitmap('teacher.ico')
     sort_window.title("Sorting Options")
     sort_window.geometry("800x600")
     sort_window.configure(bg="#102c57")  # Background color
@@ -539,9 +543,34 @@ def sort_by_name():
     label.pack(pady=10)
 
     sorting_options = IntVar()
-    ascending_radio = Radiobutton(sort_window, text="Ascending", variable=sorting_options, value=1, font=("Arial", 12), bg="#102c57", fg="#f0f0f0", selectcolor="#4CAF50")
+    ascending_radio = Radiobutton(
+        sort_window, 
+        text="Ascending", 
+        variable=sorting_options, 
+        value=1, 
+        font=("Arial", 16),   
+        bg="#102c57",    
+        fg="#f0f0f0",    
+        selectcolor="purple",    
+        activebackground="white",    
+        padx=10,    
+        pady=10     
+    )
     ascending_radio.pack()
-    descending_radio = Radiobutton(sort_window, text="Descending", variable=sorting_options, value=2, font=("Arial", 12), bg="#102c57", fg="#f0f0f0", selectcolor="#4CAF50")
+
+    descending_radio = Radiobutton(
+        sort_window, 
+        text="Descending", 
+        variable=sorting_options, 
+        value=2, 
+        font=("Arial", 16),   
+        bg="#102c57",    
+        fg="#f0f0f0",    
+        selectcolor="purple",    
+        activebackground="white",    
+        padx=10,    
+        pady=10     
+    )
     descending_radio.pack()
 
     # Button styling
@@ -600,8 +629,10 @@ def sort_by_name():
     
 # Case 2 (Case 2)
 def sort_by_score():
+    root.iconbitmap('teacher.ico')
     close_sort_export_window()
     window = Toplevel()
+    window.iconbitmap('teacher.ico')
     window.title("Sort by Score")
     window.geometry("800x600")  
     window.configure(bg="#102c57")  # Background color
@@ -646,6 +677,7 @@ def change_window(window, new_window):
 
 def matematika_window():
     sort_window = Toplevel()
+    sort_window.iconbitmap('teacher.ico')
     sort_window.title("Matematika")
     sort_window.geometry("800x600")
     sort_window.configure(bg="#102c57")  # Set background color
@@ -659,10 +691,35 @@ def matematika_window():
     radio_frame.pack(pady=10)
 
     sorting_options = IntVar()
-    ascending_radio = Radiobutton(radio_frame, text="Ascending", variable=sorting_options, value=1, font=("Arial", 12), bg="#102c57", fg="#f0f0f0", selectcolor="#4CAF50")
-    ascending_radio.pack(pady=5)
-    descending_radio = Radiobutton(radio_frame, text="Descending", variable=sorting_options, value=2, font=("Arial", 12), bg="#102c57", fg="#f0f0f0", selectcolor="#4CAF50")
-    descending_radio.pack(pady=5)
+    ascending_radio = Radiobutton(
+        sort_window, 
+        text="Ascending", 
+        variable=sorting_options, 
+        value=1, 
+        font=("Arial", 16),   
+        bg="#102c57",    
+        fg="#f0f0f0",    
+        selectcolor="purple",    
+        activebackground="white",    
+        padx=10,    
+        pady=10     
+    )
+    ascending_radio.pack()
+
+    descending_radio = Radiobutton(
+        sort_window, 
+        text="Descending", 
+        variable=sorting_options, 
+        value=2, 
+        font=("Arial", 16),   
+        bg="#102c57",    
+        fg="#f0f0f0",    
+        selectcolor="purple",    
+        activebackground="white",    
+        padx=10,    
+        pady=10     
+    )
+    descending_radio.pack()
 
     # Function to proceed with sorting
     def proceed_with_sorting():
@@ -720,6 +777,7 @@ def matematika_window():
 
 def fisika_window():
     sort_window = Toplevel()
+    sort_window.iconbitmap('teacher.ico')
     sort_window.title("Physics")
     sort_window.geometry("800x600")
     sort_window.configure(bg="#102c57")  # Set background color
@@ -733,10 +791,35 @@ def fisika_window():
     radio_frame.pack(pady=10)
 
     sorting_options = IntVar()
-    ascending_radio = Radiobutton(radio_frame, text="Ascending", variable=sorting_options, value=1, font=("Arial", 12), bg="#102c57", fg="#f0f0f0", selectcolor="#4CAF50")
-    ascending_radio.pack(pady=5)
-    descending_radio = Radiobutton(radio_frame, text="Descending", variable=sorting_options, value=2, font=("Arial", 12), bg="#102c57", fg="#f0f0f0", selectcolor="#4CAF50")
-    descending_radio.pack(pady=5)
+    ascending_radio = Radiobutton(
+        sort_window, 
+        text="Ascending", 
+        variable=sorting_options, 
+        value=1, 
+        font=("Arial", 16),   
+        bg="#102c57",    
+        fg="#f0f0f0",    
+        selectcolor="purple",    
+        activebackground="white",    
+        padx=10,    
+        pady=10     
+    )
+    ascending_radio.pack()
+
+    descending_radio = Radiobutton(
+        sort_window, 
+        text="Descending", 
+        variable=sorting_options, 
+        value=2, 
+        font=("Arial", 16),   
+        bg="#102c57",    
+        fg="#f0f0f0",    
+        selectcolor="purple",    
+        activebackground="white",    
+        padx=10,    
+        pady=10     
+    )
+    descending_radio.pack()
 
     # Function to proceed with sorting
     def proceed_with_sorting():
@@ -794,6 +877,7 @@ def fisika_window():
 
 def kimia_window():
     sort_window = Toplevel()
+    sort_window.iconbitmap('teacher.ico')
     sort_window.title("Chemicals")
     sort_window.geometry("800x600")
     sort_window.configure(bg="#102c57")  # Set background color
@@ -807,10 +891,35 @@ def kimia_window():
     radio_frame.pack(pady=10)
 
     sorting_options = IntVar()
-    ascending_radio = Radiobutton(radio_frame, text="Ascending", variable=sorting_options, value=1, font=("Arial", 12), bg="#102c57", fg="#f0f0f0", selectcolor="#4CAF50")
-    ascending_radio.pack(pady=5)
-    descending_radio = Radiobutton(radio_frame, text="Descending", variable=sorting_options, value=2, font=("Arial", 12), bg="#102c57", fg="#f0f0f0", selectcolor="#4CAF50")
-    descending_radio.pack(pady=5)
+    ascending_radio = Radiobutton(
+        sort_window, 
+        text="Ascending", 
+        variable=sorting_options, 
+        value=1, 
+        font=("Arial", 16),   
+        bg="#102c57",    
+        fg="#f0f0f0",    
+        selectcolor="purple",    
+        activebackground="white",    
+        padx=10,    
+        pady=10     
+    )
+    ascending_radio.pack()
+
+    descending_radio = Radiobutton(
+        sort_window, 
+        text="Descending", 
+        variable=sorting_options, 
+        value=2, 
+        font=("Arial", 16),   
+        bg="#102c57",    
+        fg="#f0f0f0",    
+        selectcolor="purple",    
+        activebackground="white",    
+        padx=10,    
+        pady=10     
+    )
+    descending_radio.pack()
 
     # Function to proceed with sorting
     def proceed_with_sorting():
@@ -868,6 +977,7 @@ def kimia_window():
 
 def biologi_window():
     sort_window = Toplevel()
+    sort_window.iconbitmap('teacher.ico')
     sort_window.title("Biology")
     sort_window.geometry("800x600")
     sort_window.configure(bg="#102c57")  # Set background color
@@ -881,10 +991,35 @@ def biologi_window():
     radio_frame.pack(pady=10)
 
     sorting_options = IntVar()
-    ascending_radio = Radiobutton(radio_frame, text="Ascending", variable=sorting_options, value=1, font=("Arial", 12), bg="#102c57", fg="#f0f0f0", selectcolor="#4CAF50")
-    ascending_radio.pack(pady=5)
-    descending_radio = Radiobutton(radio_frame, text="Descending", variable=sorting_options, value=2, font=("Arial", 12), bg="#102c57", fg="#f0f0f0", selectcolor="#4CAF50")
-    descending_radio.pack(pady=5)
+    ascending_radio = Radiobutton(
+        sort_window, 
+        text="Ascending", 
+        variable=sorting_options, 
+        value=1, 
+        font=("Arial", 16),   
+        bg="#102c57",    
+        fg="#f0f0f0",    
+        selectcolor="purple",    
+        activebackground="white",    
+        padx=10,    
+        pady=10     
+    )
+    ascending_radio.pack()
+
+    descending_radio = Radiobutton(
+        sort_window, 
+        text="Descending", 
+        variable=sorting_options, 
+        value=2, 
+        font=("Arial", 16),   
+        bg="#102c57",    
+        fg="#f0f0f0",    
+        selectcolor="purple",    
+        activebackground="white",    
+        padx=10,    
+        pady=10     
+    )
+    descending_radio.pack()
 
     # Function to proceed with sorting
     def proceed_with_sorting():
@@ -942,6 +1077,7 @@ def biologi_window():
 
 def b_indonesia_window():
     sort_window = Toplevel()
+    sort_window.iconbitmap('teacher.ico')
     sort_window.title("Indonesian Language")
     sort_window.geometry("800x600")
     sort_window.configure(bg="#102c57")  # Set background color
@@ -955,11 +1091,35 @@ def b_indonesia_window():
     radio_frame.pack(pady=10)
 
     sorting_options = IntVar()
-    ascending_radio = Radiobutton(radio_frame, text="Ascending", variable=sorting_options, value=1, font=("Arial", 12), bg="#102c57", fg="#f0f0f0", selectcolor="#4CAF50")
-    ascending_radio.pack(pady=5)
-    descending_radio = Radiobutton(radio_frame, text="Descending", variable=sorting_options, value=2, font=("Arial", 12), bg="#102c57", fg="#f0f0f0", selectcolor="#4CAF50")
-    descending_radio.pack(pady=5)
+    ascending_radio = Radiobutton(
+        sort_window, 
+        text="Ascending", 
+        variable=sorting_options, 
+        value=1, 
+        font=("Arial", 16),   
+        bg="#102c57",    
+        fg="#f0f0f0",    
+        selectcolor="purple",    
+        activebackground="white",    
+        padx=10,    
+        pady=10     
+    )
+    ascending_radio.pack()
 
+    descending_radio = Radiobutton(
+        sort_window, 
+        text="Descending", 
+        variable=sorting_options, 
+        value=2, 
+        font=("Arial", 16),   
+        bg="#102c57",    
+        fg="#f0f0f0",    
+        selectcolor="purple",    
+        activebackground="white",    
+        padx=10,    
+        pady=10     
+    )
+    descending_radio.pack()
     # Function to proceed with sorting
     def proceed_with_sorting():
         # Get the selected sorting option
@@ -1024,6 +1184,7 @@ def sort_by_ranking():
 
     # Create a new sorting options window
     sort_window = Toplevel()
+    sort_window.iconbitmap('teacher.ico')
     sort_window.title("Sort by Ranking")
     sort_window.geometry("800x600")
     sort_window.configure(bg="#102c57")  # Set background color
@@ -1036,14 +1197,36 @@ def sort_by_ranking():
     radio_frame = Frame(sort_window, bg="#102c57")
     radio_frame.pack(pady=10)
 
-    # IntVar for radio buttons
     sorting_options = IntVar()
+    ascending_radio = Radiobutton(
+        sort_window, 
+        text="Ascending", 
+        variable=sorting_options, 
+        value=1, 
+        font=("Arial", 16),   
+        bg="#102c57",    
+        fg="#f0f0f0",    
+        selectcolor="purple",    
+        activebackground="white",    
+        padx=10,    
+        pady=10     
+    )
+    ascending_radio.pack()
 
-    # Radiobuttons for sorting options
-    ascending_radio = Radiobutton(radio_frame, text="Ascending", variable=sorting_options, value=1, font=("Arial", 12), bg="#102c57", fg="#f0f0f0", selectcolor="#4CAF50")
-    ascending_radio.pack(pady=5)
-    descending_radio = Radiobutton(radio_frame, text="Descending", variable=sorting_options, value=2, font=("Arial", 12), bg="#102c57", fg="#f0f0f0", selectcolor="#4CAF50")
-    descending_radio.pack(pady=5)
+    descending_radio = Radiobutton(
+        sort_window, 
+        text="Descending", 
+        variable=sorting_options, 
+        value=2, 
+        font=("Arial", 16),   
+        bg="#102c57",    
+        fg="#f0f0f0",    
+        selectcolor="purple",    
+        activebackground="white",    
+        padx=10,    
+        pady=10     
+    )
+    descending_radio.pack()
 
     # Function to proceed with sorting
     def proceed_with_sorting():
@@ -1098,6 +1281,7 @@ def sort_by_class():
 
     # Create a new sorting options window
     sort_window = Toplevel()
+    sort_window.iconbitmap('teacher.ico')
     sort_window.title("Sort by Class")
     sort_window.geometry("800x600")
     sort_window.configure(bg="#102c57")  # Set background color
@@ -1110,15 +1294,36 @@ def sort_by_class():
     radio_frame = Frame(sort_window, bg="#102c57")
     radio_frame.pack(pady=10)
 
-    # IntVar for radio buttons
     sorting_options = IntVar()
+    ascending_radio = Radiobutton(
+        sort_window, 
+        text="Ascending", 
+        variable=sorting_options, 
+        value=1, 
+        font=("Arial", 16),   
+        bg="#102c57",    
+        fg="#f0f0f0",    
+        selectcolor="purple",    
+        activebackground="white",    
+        padx=10,    
+        pady=10     
+    )
+    ascending_radio.pack()
 
-    # Radiobuttons for sorting options
-    ascending_radio = Radiobutton(radio_frame, text="Ascending", variable=sorting_options, value=1, font=("Arial", 12), bg="#102c57", fg="#f0f0f0", selectcolor="#4CAF50")
-    ascending_radio.pack(pady=5)
-    descending_radio = Radiobutton(radio_frame, text="Descending", variable=sorting_options, value=2, font=("Arial", 12), bg="#102c57", fg="#f0f0f0", selectcolor="#4CAF50")
-    descending_radio.pack(pady=5)
-
+    descending_radio = Radiobutton(
+        sort_window, 
+        text="Descending", 
+        variable=sorting_options, 
+        value=2, 
+        font=("Arial", 16),   
+        bg="#102c57",    
+        fg="#f0f0f0",    
+        selectcolor="purple",    
+        activebackground="white",    
+        padx=10,    
+        pady=10     
+    )
+    descending_radio.pack()
     # Create a button to proceed with sorting
     def proceed_with_sorting():
         # Get the selected sorting option
@@ -1166,6 +1371,7 @@ def sort_by_class():
 def display_sorted_students(students_array, count, filename_c, title):
     # Create a new window to display the sorted students
     table_window = Toplevel()
+    table_window.iconbitmap('teacher.ico')
     table_window.title(title)
     table_window.geometry("1000x600")
     
@@ -1239,6 +1445,7 @@ def display_unsorted_students():
 
     # Create a new window to display the unsorted students
     sort_window = Toplevel()
+    sort_window.iconbitmap('teacher.ico')
     sort_window.title("Unsorted Data")
     sort_window.geometry("1000x600")
 
@@ -1281,6 +1488,7 @@ def display_unsorted_students():
 
 # Case 2 (Case 6)
 def searching_siswa(root_siswa, previous_window):
+    root.iconbitmap('teacher.ico')
     def destroy_previous_window(window):
         if isinstance(window, tk.Toplevel) or isinstance(window, tk.Tk):
             window.destroy()
@@ -1288,6 +1496,7 @@ def searching_siswa(root_siswa, previous_window):
     # Close the previous window if it exists
     destroy_previous_window(previous_window)
     search_window = tk.Toplevel()
+    search_window.iconbitmap('teacher.ico')
     search_window.title("Search Students")
     search_window.geometry("1000x600")
 
@@ -1356,6 +1565,7 @@ def searching_siswa(root_siswa, previous_window):
 
     def display_search_result(result):
         result_window = tk.Toplevel()
+        result_window.iconbitmap('teacher.ico')
         result_window.title("Search Result")
         result_window.geometry("1000x600")
 
@@ -1469,6 +1679,7 @@ def update_student_info(root_siswa, previous_window):
     destroy_previous_window(previous_window)
 
     update_window = tk.Toplevel()
+    update_window.iconbitmap('teacher.ico')
     update_window.title("Update Student Information")
     update_window.geometry("500x600")
     update_window.configure(bg="#102c57")
@@ -1511,6 +1722,7 @@ def update_student_info(root_siswa, previous_window):
         return result
 
     def display_search_result(result):
+        root.iconbitmap('teacher.ico')
         result_window = tk.Toplevel()
         result_window.title("Search Result")
         result_window.geometry("1000x600")
@@ -1678,6 +1890,7 @@ def delete_student(current_user):
 
     # Create the delete student data window
     delete_window = tk.Tk()
+    delete_window.iconbitmap('teacher.ico')
     delete_window.title("Delete Student Data")
     delete_window.geometry("600x400")
     delete_window.configure(bg="#102c57")
@@ -1697,6 +1910,7 @@ def delete_student(current_user):
     student_id_entry.grid(row=0, column=1, padx=20, pady=20)
 
     def delete_student_data():
+        root.iconbitmap('teacher.ico')
         global root_siswa  # Access root_siswa from the global scope
 
         student_id = student_id_entry.get()
@@ -1779,6 +1993,7 @@ def delete_student(current_user):
 
     def display_search_result(result):
         result_window = tk.Toplevel()
+        result_window.iconbitmap('teacher.ico')
         result_window.title("Search Result")
         result_window.geometry("1000x600")
 
@@ -1860,6 +2075,7 @@ def traverse_and_collect_scores(node, class_filter=None):
 
 # Function to plot average scores
 def plot(class_filter=None):
+    root.iconbitmap('teacher.ico')
     global root_siswa
 
     # Load student data
@@ -1890,6 +2106,7 @@ def plot(class_filter=None):
 # Function to create the plotting window with buttons
 def create_plotting_window(current_user):
     plot_window = tk.Toplevel()
+    plot_window.iconbitmap('teacher.ico')
     plot_window.title("Plot Average Scores")
     plot_window.geometry("800x600")
     plot_window.configure(bg="#102c57")  # Setting background color for the window
@@ -2140,6 +2357,7 @@ root = Tk()
 root.title("Teacher Management System")
 root.geometry("600x600")
 root.configure(bg="#102c57")
+root.iconbitmap('teacher.ico')
 
 # Load and resize the logo image
 image = Image.open("teacher.png")
